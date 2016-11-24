@@ -1,3 +1,3 @@
 step,protocol,dependencies
-s01_liftOver,protocols/s01_liftOver.sh,s01_liftOver.sh
-s02_phasing,protocols/s02_phasing.sh,s01_liftOver.sh
+s01_liftOver,protocols/liftOver.sh,
+s02_phasing,protocols/phasing.sh,s01_liftOver.sh

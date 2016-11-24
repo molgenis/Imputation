@@ -1,15 +1,16 @@
 homeDir,/groups/umcg-gaf/tmp04/imputatiemappie/
+githubdir,/home/umcg-mbijlsma/github/Imputation/
 
-liftOverInputFolder,${homeDir}/imputation_pipeline/${studyData}/
-liftOverOneInputFile,${liftOverInputFolder}/${studyData}
-liftOverPerChrFile,${liftOverInputFolder}/chr${chr}
-liftOverTmpChrFolder,${homeDir}/workdir/tmp/chr${chr}/
-liftOverChainFile,${homeDir}/imputation_pipeline/chainFiles/${genomeBuild}ToHg19.over.chain
-phasingOutputDir,${intermediateDir}/output/phasing/chr${chr}/
+liftOverInputDir,${homeDir}/${studyData}/
+liftOverInputFile,${liftOverInputDir}/chr${chr}
+liftOverTmpChrFolder,${homeDir}/tmp/chr${chr}/
+liftOverChainFile,${githubdir}/chainFiles/${genomeBuild}ToHg19.over.chain
+phasingOutputDir,${homeDir}/output/phasing/chr${chr}/
+liftOverOutputDir, ${homeDir}/output/liftover/chr${chr}/
 
 ##TMP FOLDERS
-intermediateDir,/groups/umcg-gaf/tmp04/tmp/${studyData}/
-outputPerChr,${intermediateDir}/chr${chr}
+intermediateDir,${homeDir}/tmp/
+outputPerChr,${homeDir}/tmp/chr${chr}
 
 ##MODULE VERSIONS
 plinkVersion,plink/1.9-foss-2015b
