@@ -1,0 +1,16 @@
+homeDir,/home/umcg-mbijlsma/
+liftOverInputFolder,${homeDir}/imputation_pipeline/${studyData}/
+liftOverOneInputFile,${liftOverInputFolder}/${studyData}
+liftOverPerChrFile,${liftOverInputFolder}/chr${chr}
+liftOverTmpChrFolder,${homeDir}/workdir/tmp/chr${chr}/
+liftOverChainFile,${homeDir}/imputation_pipeline/chainFiles/${genomeBuild}ToHg19.over.chain
+
+
+##TMP FOLDERS
+intermediateDir,/groups/umcg-gaf/tmp04/tmp/${studyData}/
+outputPerChr,${intermediateDir}/chr${chr}
+
+
+##MODULE VERSIONS
+plinkVersion,plink/1.9-foss-2015b
+liftOverUcscVersion,liftOverUcsc/20161011
