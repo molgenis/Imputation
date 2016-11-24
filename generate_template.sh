@@ -3,10 +3,11 @@
 module load Molgenis-Compute/v16.08.1-Java-1.8.0_74
 module list
 
-PROJECT=PROJECTXX
+PROJECT=XX
 RUNNUMBER=XX
-WORKDIR=XX
-WORKFLOW=${WORKDIR}/myfirst_workflow/workflow.csv
+WORKDIR=/home/umcg-mbijlsma/test/
+GITHUBDIR=/home/umcg-mbijlsma/github/Imputation/
+WORKFLOW=${GITHUBDIR}/workflow.csv
 
 echo "$WORKDIR AND $RUNNUMBER"
 
@@ -23,20 +24,16 @@ then
 fi
 
 
-perl /home/umcg-mbenjamins/Test/myfirst_workflow/convertParametersGitToMolgenis.pl /home/umcg-mbenjamins/Test/myfirst_workflow/parameters_liftOver.csv > \
-${WORKDIR}/generatedscripts/${PROJECT}/run_${RUNNUMBER}/liftover.csv
-
-perl /home/umcg-mbenjamins/Test/myfirst_workflow/convertParametersGitToMolgenis.pl /home/umcg-mbenjamins/Test/myfirst_workflow/parameters_phasing.csv > \
-${WORKDIR}/generatedscripts/${PROJECT}/run_${RUNNUMBER}/phasing.csv
-
+perl ${GITHUBDIR}/convertParametersGitToMolgenis.pl ${GITHUBDIR}/parameters.csv > \
+${WORKDIR}/generatedscripts/${PROJECT}/run_${RUNNUMBER}/parameters_converted.csv
 
 
 sh $EBROOTMOLGENISMINCOMPUTE/molgenis_compute.sh \
--p ${WORKDIR}/generatedscripts/${PROJECT}/run_${RUNNUMBER}/liftover.csv \
--p ${WORKDIR}/generatedscripts/${PROJECT}/run_${RUNNUMBER}/phasing.csv \
--p ${WORKDIR}/Input/${PROJECT}.csv \
--p /home/umcg-mbenjamins/github/Imputation/chr.csv \
+-p ${WORKDIR}/generatedscripts/${PROJECT}/run_${RUNNUMBER}/parameters_converted.csv \
+-p ${GITHUBDIR}/datasheet.csv \
+-p ${GITHUBDIR}/chromosomes.csv \
 -w ${WORKFLOW} \
+-header ${GITHUBDIR}/templates/slurm/header.ftl \
 -rundir ${WORKDIR}/Projects/${PROJECT}/run_${RUNNUMBER}/jobs \
 -b slurm \
 -weave \
