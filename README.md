@@ -1,4 +1,4 @@
-# MOLGENIS Compute 5.x Documentation
+# MOLGENIS Imputation 1.x Documentation
 
 Licence: LGPLv3. http://www.molgenis.org
 
