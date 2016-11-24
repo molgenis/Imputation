@@ -1,0 +1,12 @@
+### Modules ###
+shapeIt,shapeit
+shapeItVersion,v2.r837-static
+
+### DIRs ###
+workDir,/home/umcg-mbenjamins/Test/
+tmpDir,${intermediateDir}/tmp/
+liftOverOutputDir,${intermediateDir}/output/chr${chr}/
+phasingOutputDir,${intermediateDir}/output/phasing/chr${chr}/
+
+### Files ###
+geneticMap,/apps/data/www.shapeit.fr/genetic_map_b37/genetic_map_chr${chr}_combined_b37.txt
