@@ -1,21 +1,26 @@
 homeDir,/groups/umcg-gaf/tmp04/imputatiemappie/
 githubdir,/home/umcg-mbijlsma/github/Imputation/
 
+##LIFTOVER PARAMETERS
 liftOverInputDir,${homeDir}/${studyData}/
 liftOverInputFile,${liftOverInputDir}/chr${chr}
 liftOverTmpChrFolder,${homeDir}/tmp/chr${chr}/
 liftOverChainFile,${githubdir}/chainFiles/${genomeBuild}ToHg19.over.chain
-phasingOutputDir,${homeDir}/output/phasing/chr${chr}/
-liftOverOutputDir, ${homeDir}/output/liftover/chr${chr}/
+
+##PHASING PARAMETERS
+geneticMap,/apps/data/www.shapeit.fr/genetic_map_b37/genetic_map_chr${chr}_combined_b37.txt
+
+##GENOTYPEHARMONIZER PARAMETERS
+pathToReference1000G,/apps/data/1000G/release/20130502/ALL.chr${chr}.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
+pathToReferenceGoNL,/apps/data/gonl/release5_noContam_noChildren_with_AN_AC_GTC_stripped/gonl.chr${chr}.snps_indels.r5.vcf.gz
 
 ##TMP FOLDERS
 intermediateDir,${homeDir}/tmp/
 outputPerChr,${homeDir}/tmp/chr${chr}
+tempDir,/groups/umcg-gaf/tmp04/temp/
 
 ##MODULE VERSIONS
 plinkVersion,plink/1.9-foss-2015b
 liftOverUcscVersion,liftOverUcsc/20161011
-shapeIt,shapeit
-shapeItVersion,v2.r837-static
-
-geneticMap,/apps/data/www.shapeit.fr/genetic_map_b37/genetic_map_chr${chr}_combined_b37.txt
+shapeItVersion,shapeit/v2.r837-static
+genotypeHarmonizerVersion,GenotypeHarmonizer/1.4.18-Java-1.8.0_45

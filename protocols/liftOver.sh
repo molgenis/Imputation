@@ -1,14 +1,12 @@
-#!/bin/bash
+#MOLGENIS walltime=05:59:59 mem=10gb ppn=1
 
 #string chr
 #string liftOverChainFile
 #string intermediateDir
 #string outputPerChr
 #string liftOverInputFile
-#string liftOverOutputDir
 #string liftOverUcscVersion
 #string plinkVersion
-
 
 
 ##TODO: Check if bed file is delivered per chromosome, if not, split bed file in 22 separate bed files.
@@ -104,7 +102,5 @@ mv ${tmpOutputPerChr}.{bed,bim,fam,ped,map} ${intermediateDir}
 #If everything went right, the ped and map files needed for the phasing step will be moved to the output folder
 if [ ${returnCode} -eq 0 ]
 then
-	echo -e "Finishing liftOver step, moving resulting ped and map files to output dir: ${intermediateDir}/output/chr${chr}/"
-	mkdir -p ${liftOverOutputDir}
-	mv ${intermediateDir}/chr${chr}.{ped,map} ${liftOverOutputDir}
+	echo -e "Finishing liftOver step, resulting ped and map files can be found here: ${intermediateDir}"
 fi
