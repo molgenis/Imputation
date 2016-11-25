@@ -1,3 +1,4 @@
 step,protocol,dependencies
 s01_liftOver,protocols/liftOver.sh,
 s02_phasing,protocols/phasing.sh,s01_liftOver.sh
+s03_genotypeHarmonizer,protocols/genotypeHarmonizer.sh,s02_phasing.sh

@@ -1,34 +1,22 @@
-#MOLGENIS walltime=64:00:00 mem=2gb
+#MOLGENIS walltime=05:59:59 mem=30gb ppn=21
 #string chr
-#string shapeIt
 #string shapeItVersion
 #string geneticMap
 #string studyData
 #string intermediateDir
-#string liftOverOutputDir
-#string phasingOutputDir
-
 
 set -e
 set -u
 
-#Checking if Phasing directory is Present or not
-if [ -d ${phasingOutputDir}}/ ]
-then
-	rm -rf ${phasingOutputDir}
-	mkdir -p ${phasingOutputDir}
-else
-	mkdir -p ${phasingOutputDir}/
-fi
 
 #load modules
 
-module load ${shapeIt}/${shapeItVersion}
+module load ${shapeItVersion}
 
 ###Phasing the study data
 
-shapeit -P ${liftOverOutputDir}/chr${chr} \
+shapeit -P ${intermediateDir}/chr${chr} \
         -M ${geneticMap} \
-        -O ${phasingOutputDir}/chr${chr}_gwas.phased \
+        -O ${intermediateDir}/chr${chr}.phased \
 	--output-log ${intermediateDir}/phasing_chr${chr}.log \
-	--thread 4
+	--thread 20
