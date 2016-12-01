@@ -8,6 +8,9 @@
 #string genotypeHarmonizerVersion
 #string tempDir
 
+set -e
+set -u
+
 module load ${genotypeHarmonizerVersion}
 
 
@@ -22,7 +25,7 @@ then
 		--output ${intermediateDir}/chr${chr}.gh \
 		--outputType SHAPEIT2
 
-elif [ "${referenceGenome}" == "GoNL" ];
+elif [ "${referenceGenome}" == "gonl" ];
 then
 	java -XX:ParallelGCThreads=2 -Djava.io.tmpdir=${tempDir} -Xmx8g -jar ${EBROOTGENOTYPEHARMONIZER}/GenotypeHarmonizer.jar
                 --input ${intermediateDir}/chr${chr}.phased \

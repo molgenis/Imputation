@@ -1,26 +1,39 @@
-homeDir,/groups/umcg-gaf/tmp04/imputatiemappie/
+gafTmp,/groups/umcg-gaf/tmp04/
+homeDir,${gafTmp}/projects/
 githubdir,/home/umcg-mbijlsma/github/Imputation/
+dataDir,/apps/data/
+tempDir,${gafTmp}/temp
+
 
 ##LIFTOVER PARAMETERS
 liftOverInputDir,${homeDir}/${studyData}/
 liftOverInputFile,${liftOverInputDir}/chr${chr}
-liftOverTmpChrFolder,${homeDir}/tmp/chr${chr}/
 liftOverChainFile,${githubdir}/chainFiles/${genomeBuild}ToHg19.over.chain
 
+
 ##PHASING PARAMETERS
-geneticMap,/apps/data/www.shapeit.fr/genetic_map_b37/genetic_map_chr${chr}_combined_b37.txt
+geneticMapPhasing,${dataDir}/www.shapeit.fr/genetic_map_b37/genetic_map_chr${chr}_combined_b37.txt
+
 
 ##GENOTYPEHARMONIZER PARAMETERS
-pathToReference1000G,/apps/data/1000G/release/20130502/ALL.chr${chr}.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
-pathToReferenceGoNL,/apps/data/gonl/release5_noContam_noChildren_with_AN_AC_GTC_stripped/gonl.chr${chr}.snps_indels.r5.vcf.gz
+pathToReference1000G,${dataDir}/${referenceGenome}/phase1/GIANT.phase1_release_v3.20101123.snps_indels_svs.genotypes.refpanel.ALL/chr${chr}.phase1_release_v3.20101123.snps_indels_svs.genotypes.refpanel.ALL.vcf.gz
+pathToReferenceGoNL,${dataDir}/${referenceGenome}/release5_noContam_noChildren_with_AN_AC_GTC_stripped/gonl.chr${chr}.snps_indels.r5.vcf.gz
+
+
+##IMPUTATION PARAMETERS
+pathToPhasedReference1000G,${dataDir}/${referenceGenome}/imputationReference_phased_b37/
+pathToPhasedReferenceGoNL,${dataDir}/${referenceGenome}/imputationReference_phased_b37/
+geneticMapImputation,${dataDir}/www.shapeit.fr/genetic_map_b37/genetic_map_chr${chrom}_combined_b37.txt
+
 
 ##TMP FOLDERS
-intermediateDir,${homeDir}/tmp/
-outputPerChr,${homeDir}/tmp/chr${chr}
-tempDir,/groups/umcg-gaf/tmp04/temp/
+intermediateDir,${homeDir}/tmp/${studyData}/
+outputPerChr,${intermediateDir}/chr${chr}
+
 
 ##MODULE VERSIONS
 plinkVersion,plink/1.9-foss-2015b
 liftOverUcscVersion,liftOverUcsc/20161011
 shapeItVersion,shapeit/v2.r837-static
 genotypeHarmonizerVersion,GenotypeHarmonizer/1.4.18-Java-1.8.0_45
+imputeVersion,IMPUTE2/2.3.0_x86_64_static

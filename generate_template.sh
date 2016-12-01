@@ -32,6 +32,7 @@ sh $EBROOTMOLGENISMINCOMPUTE/molgenis_compute.sh \
 -p ${WORKDIR}/generatedscripts/${PROJECT}/run_${RUNNUMBER}/parameters_converted.csv \
 -p ${GITHUBDIR}/datasheet.csv \
 -p ${GITHUBDIR}/chromosomes.csv \
+-p ${GITHUBDIR}/chunks_b37.csv \
 -w ${WORKFLOW} \
 -header ${GITHUBDIR}/templates/slurm/header.ftl \
 -rundir ${WORKDIR}/Projects/${PROJECT}/run_${RUNNUMBER}/jobs \
