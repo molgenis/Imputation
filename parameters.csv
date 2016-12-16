@@ -3,6 +3,8 @@ homeDir,${gafTmp}/projects/
 githubdir,/home/umcg-mbijlsma/github/Imputation/
 dataDir,/apps/data/
 tempDir,${gafTmp}/temp
+projectDir,${homeDir}/${studyData}/${run}/
+projectResultsDir,${projectDir}/results/
 
 
 ##LIFTOVER PARAMETERS
@@ -37,3 +39,7 @@ liftOverUcscVersion,liftOverUcsc/20161011
 shapeItVersion,shapeit/v2.r837-static
 genotypeHarmonizerVersion,GenotypeHarmonizer/1.4.18-Java-1.8.0_45
 imputeVersion,IMPUTE2/2.3.0_x86_64_static
+
+
+
+
