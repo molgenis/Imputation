@@ -4,3 +4,4 @@ s02_phasing,protocols/phasing.sh,s01_liftOver.sh
 s03_genotypeHarmonizer,protocols/genotypeHarmonizer.sh,s02_phasing.sh
 s04_imputation,protocols/imputation.sh,s03_genotypeHarmonizer.sh
 s05_concatChunks,protocols/concatChunks.sh,s04_imputation.sh
+s06_copyToResultsDir,protocols/copyToResultsDir.sh,s05_concatChunks
