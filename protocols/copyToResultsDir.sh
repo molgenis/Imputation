@@ -9,6 +9,9 @@
 #list toChrPos
 #string studyData
 
+set -e
+set -u
+
 #Create result directories
 mkdir -p ${projectResultsDir}/liftOver/
 mkdir -p ${projectResultsDir}/phasing

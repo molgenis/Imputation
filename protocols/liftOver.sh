@@ -9,6 +9,8 @@
 #string liftOverUcscVersion
 #string plinkVersion
 
+set -e
+set -u
 
 makeTmpDir ${outputPerChr}
 tmpOutputPerChr=${MC_tmpFile}
