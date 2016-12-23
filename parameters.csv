@@ -1,6 +1,6 @@
 gafTmp,/groups/umcg-gaf/tmp04/
 homeDir,${gafTmp}/projects/
-githubdir,/home/umcg-mbijlsma/github/Imputation/
+githubDir,/home/umcg-mbijlsma/github/Imputation/
 dataDir,/apps/data/
 tempDir,${gafTmp}/temp
 projectDir,${homeDir}/${studyData}/${run}/
@@ -10,7 +10,7 @@ projectResultsDir,${projectDir}/results/
 ##LIFTOVER PARAMETERS
 liftOverInputDir,${homeDir}/${studyData}/
 liftOverInputFile,${liftOverInputDir}/chr${chr}
-liftOverChainFile,${githubdir}/chainFiles/${genomeBuild}ToHg19.over.chain
+liftOverChainFileDir,${githubDir}/chainFiles/
 
 
 ##PHASING PARAMETERS

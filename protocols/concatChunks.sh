@@ -1,4 +1,4 @@
-#MOLGENIS walltime=05:59:59 mem=30gb ppn=1
+#MOLGENIS walltime=05:59:59 mem=5gb ppn=1
 
 #string chrom
 #string intermediateDir
@@ -34,4 +34,4 @@ done
 #echo -e "Concatenate files: \ncat ${impute2ChunksMerged[@]} >> ${intermediateDir}/chr${chrom}_concatenated"
 cat ${impute2ChunksMerged[@]} >> ${intermediateDir}/chr${chrom}_concatenated
 #echo -e "\nConcatenate info files: \ncat ${impute2ChunksInfoMerged[@]} >> ${intermediateDir}/chr${chrom}_info_concatenated"
-cat ${impute2ChunksMerged[@]} >> ${intermediateDir}/chr${chrom}_concatenated
+cat ${impute2ChunksInfoMerged[@]} >> ${intermediateDir}/chr${chrom}_info_concatenated
