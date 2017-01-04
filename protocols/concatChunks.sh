@@ -14,11 +14,12 @@ declare -a impute2ChunksInfoMerged
 
 length=${#fromChrPos[@]}-1
 
-#Concat all chunks
+#Fill array with chunks
 #Info files have headers, remove headers and leave first one
 for ((i=0;i<=length;i++));
 do
-	impute2ChunksMerged[${i}]=${intermediateDir}/chr${chrom}_${fromChrPos[${i}]}-${toChrPos[${i}]} 
+	echo "Processing: chr${chrom}_${fromChrPos[${i}]}-${toChrPos[${i}]}"
+	impute2ChunksMerged[${i}]=${intermediateDir}/chr${chrom}_${fromChrPos[${i}]}-${toChrPos[${i}]}
 
 	if [ $i -eq 0 ];
 	then
@@ -26,12 +27,16 @@ do
 
 	elif [ $i > 0 ];
 	then
-		echo "sed '1d' ${intermediateDir}/chr${chrom}_${fromChrPos[${i}]}-${toChrPos[${i}]}_info > tmpfile; mv tmpfile ${intermediateDir}/chr${chrom}_${fromChrPos[${i}]}-${toChrPos[${i}]}_info"
 		impute2ChunksInfoMerged[${i}]=${intermediateDir}/chr${chrom}_${fromChrPos[${i}]}-${toChrPos[${i}]}_info
 	fi
 done
 
-#echo -e "Concatenate files: \ncat ${impute2ChunksMerged[@]} >> ${intermediateDir}/chr${chrom}_concatenated"
+#Delete concatenated chunks in case a job has to be restarted
+rm -f ${intermediateDir}/chr${chrom}_concatenated
+rm -f ${intermediateDir}/chr${chrom}_info_concatenated
+
+#Concatenate chunks and info files
 cat ${impute2ChunksMerged[@]} >> ${intermediateDir}/chr${chrom}_concatenated
-#echo -e "\nConcatenate info files: \ncat ${impute2ChunksInfoMerged[@]} >> ${intermediateDir}/chr${chrom}_info_concatenated"
 cat ${impute2ChunksInfoMerged[@]} >> ${intermediateDir}/chr${chrom}_info_concatenated
+
+echo "Chunk and info files are merged."
