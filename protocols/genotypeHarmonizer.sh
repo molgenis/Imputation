@@ -11,8 +11,9 @@
 set -e
 set -u
 
+#Load modules
 module load ${genotypeHarmonizerVersion}
-
+ml
 
 if [ "${referenceGenome}" == "1000G" ];
 then

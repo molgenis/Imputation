@@ -31,6 +31,7 @@ geneticMapImputation,${dataDir}/www.shapeit.fr/genetic_map_b37/genetic_map_chr${
 ##TMP FOLDERS
 intermediateDir,${homeDir}/tmp/${studyData}/
 outputPerChr,${intermediateDir}/chr${chr}
+outputPerChunk,${intermediateDir}/chr${chrom}_${fromChrPos}-${toChrPos}
 
 
 ##MODULE VERSIONS

@@ -42,7 +42,7 @@ plink \
 	--recode \
 	--out ${tmpOutputPerChr}
 
-echo -e "mv ${tmpOutputPerChr}.{ped,map} ${intermediateDir}"
+echo -e "\nmv ${tmpOutputPerChr}.{ped,map} ${intermediateDir}"
 mv ${tmpOutputPerChr}.{ped,map,log} ${intermediateDir}
 
 #If genome build of study data is the same as the genome build of the reference data, the script stops here.
@@ -133,6 +133,6 @@ if ! [[ ${genomeBuild} == "hg19" ]] && ! [[ ${genomeBuild} == "GRCh37" ]];then
 		echo -e "Finishing liftOver step, resulting ped and map files can be found here: ${intermediateDir}"
 	fi
 else
-	echo "Genome builds of study data and reference data are the same, ped and map files are created and can be found here: ${intermediateDir}"
+	echo -e "Genome builds of study data and reference data are the same, ped and map files are created and can be found here: ${intermediateDir}\n"
 fi
 
