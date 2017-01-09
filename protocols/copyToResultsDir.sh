@@ -22,22 +22,30 @@ mkdir -p ${projectResultsDir}/logs/
 mkdir -p ${projectResultsDir}/finalResults/
 
 #Copy liftover files to results directory
+#If genome builds are the same, only ped and map files are created.
 for i in ${chr[@]};
 do
 	echo "chr${i}"
 	echo "Copy liftover files to results directory.."
-	rsync -a ${intermediateDir}/chr${i}.bed ${projectResultsDir}/liftOver/
-	rsync -a ${intermediateDir}/chr${i}.bim ${projectResultsDir}/liftOver/
-	rsync -a ${intermediateDir}/chr${i}.fam ${projectResultsDir}/liftOver/
-	rsync -a ${intermediateDir}/chr${i}.map ${projectResultsDir}/liftOver/
-	rsync -a ${intermediateDir}/chr${i}.new.bed ${projectResultsDir}/liftOver/
-	rsync -a ${intermediateDir}/chr${i}.new.Mappings.txt ${projectResultsDir}/liftOver/
-	rsync -a ${intermediateDir}/chr${i}.new.unmappedSnps.txt ${projectResultsDir}/liftOver/
-	rsync -a ${intermediateDir}/chr${i}.new.unmapped.txt ${projectResultsDir}/liftOver/
-	rsync -a ${intermediateDir}/chr${i}.ped ${projectResultsDir}/liftOver/
-	rsync -a ${intermediateDir}/chr${i}.ucsc.bed ${projectResultsDir}/liftOver/
-	rsync -a ${intermediateDir}/chr${i}.unordered.map ${projectResultsDir}/liftOver/
-	rsync -a ${intermediateDir}/chr${i}.unordered.ped ${projectResultsDir}/liftOver/
+
+	if [[ $(grep "Genome builds of study data and reference data are the same, ped and map files are created and can be found here: ${intermediateDir}" s01_liftOver_*.out) ]];
+	then
+		rsync -a ${intermediateDir}/chr${i}.ped ${projectResultsDir}/liftOver/
+		rsync -a ${intermediateDir}/chr${i}.map ${projectResultsDir}/liftOver/
+	else
+		rsync -a ${intermediateDir}/chr${i}.bed ${projectResultsDir}/liftOver/
+		rsync -a ${intermediateDir}/chr${i}.bim ${projectResultsDir}/liftOver/
+		rsync -a ${intermediateDir}/chr${i}.fam ${projectResultsDir}/liftOver/
+		rsync -a ${intermediateDir}/chr${i}.map ${projectResultsDir}/liftOver/
+		rsync -a ${intermediateDir}/chr${i}.new.bed ${projectResultsDir}/liftOver/
+		rsync -a ${intermediateDir}/chr${i}.new.Mappings.txt ${projectResultsDir}/liftOver/
+		rsync -a ${intermediateDir}/chr${i}.new.unmappedSnps.txt ${projectResultsDir}/liftOver/
+		rsync -a ${intermediateDir}/chr${i}.new.unmapped.txt ${projectResultsDir}/liftOver/
+		rsync -a ${intermediateDir}/chr${i}.ped ${projectResultsDir}/liftOver/
+		rsync -a ${intermediateDir}/chr${i}.ucsc.bed ${projectResultsDir}/liftOver/
+		rsync -a ${intermediateDir}/chr${i}.unordered.map ${projectResultsDir}/liftOver/
+		rsync -a ${intermediateDir}/chr${i}.unordered.ped ${projectResultsDir}/liftOver/
+	fi
 done
 
 echo -e ".. finished (1/8)\n"
@@ -89,25 +97,37 @@ done
 echo -e ".. finished (5/8)\n"
 
 #Copy logfiles to results directory
+#If genome builds are the same, only one log file is created.
 for i in ${chr[@]};
 do
 	echo "chr${i}"
 	echo "Copy log files from each step to results directory.."
-	rsync -a ${intermediateDir}/chr${i}.log ${projectResultsDir}/logs
-	rsync -a ${intermediateDir}/chr${i}.unordered.log ${projectResultsDir}/logs
-	rsync -a ${intermediateDir}/chr${i}.gh.log ${projectResultsDir}/logs
-	rsync -a ${intermediateDir}/chr${i}.gh_snpLog.log ${projectResultsDir}/logs
-	rsync -a ${intermediateDir}/phasing_chr${i}.log ${projectResultsDir}/logs
-	rsync -a ${intermediateDir}/phasing_chr${i}.snp.mm ${projectResultsDir}/logs
-	rsync -a ${intermediateDir}/phasing_chr${i}.ind.mm ${projectResultsDir}/logs
+
+	if [[ $(grep "Genome builds of study data and reference data are the same, ped and map files are created and can be found here: ${intermediateDir}" s01_liftOver_*.out) ]];
+        then
+		rsync -a ${intermediateDir}/chr${i}.log ${projectResultsDir}/logs
+		rsync -a ${intermediateDir}/chr${i}.gh.log ${projectResultsDir}/logs
+                rsync -a ${intermediateDir}/chr${i}.gh_snpLog.log ${projectResultsDir}/logs
+                rsync -a ${intermediateDir}/chr${i}.phasing.log ${projectResultsDir}/logs
+                rsync -a ${intermediateDir}/chr${i}.phasing.snp.mm ${projectResultsDir}/logs
+                rsync -a ${intermediateDir}/chr${i}.phasing.ind.mm ${projectResultsDir}/logs
+        else
+		rsync -a ${intermediateDir}/chr${i}.log ${projectResultsDir}/logs
+		rsync -a ${intermediateDir}/chr${i}.unordered.log ${projectResultsDir}/logs
+		rsync -a ${intermediateDir}/chr${i}.gh.log ${projectResultsDir}/logs
+		rsync -a ${intermediateDir}/chr${i}.gh_snpLog.log ${projectResultsDir}/logs
+		rsync -a ${intermediateDir}/chr${i}.phasing.log ${projectResultsDir}/logs
+		rsync -a ${intermediateDir}/chr${i}.phasing.snp.mm ${projectResultsDir}/logs
+		rsync -a ${intermediateDir}/chr${i}.phasing.ind.mm ${projectResultsDir}/logs
+	fi
 done
 
 for i in $(cat ${intermediateDir}/chunks.txt);
 do
-	rsync -a ${i}_info ${projectResultsDir}/logs
-	rsync -a ${i}_info_by_sample ${projectResultsDir}/logs
-	rsync -a ${i}_summary ${projectResultsDir}/logs
-	rsync -a ${i}_warnings ${projectResultsDir}/logs
+	rsync -a ${intermediateDir}/${i}_info ${projectResultsDir}/logs
+	rsync -a ${intermediateDir}/${i}_info_by_sample ${projectResultsDir}/logs
+	rsync -a ${intermediateDir}/${i}_summary ${projectResultsDir}/logs
+	rsync -a ${intermediateDir}/${i}_warnings ${projectResultsDir}/logs
 done
 echo -e ".. finished (6/8)\n"
 
@@ -117,7 +137,7 @@ echo "Creating tar.gz file per chromosome in results directory.."
 
 for i in ${chr[@]};
 do
-	tar -cvzf ${projectResultsDir}/finalResults/chr${i}.tar.gz ${intermediateDir}/chr${i}.phased.haps ${intermediateDir}/chr${i}.phased.sample ${intermediateDir}/chr${i} ${intermediateDir}/chr${i}_info
+	tar -cvzf ${projectResultsDir}/finalResults/chr${i}.tar.gz ${intermediateDir}/chr${i}.phased.haps ${intermediateDir}/chr${i}.phased.sample ${intermediateDir}/chr${i}_concatenated ${intermediateDir}/chr${i}_info_concatenated
 done
 
 echo "Tar.gz file created: ${projectResultsDir}/chr${chr}.tar.gz"
@@ -135,16 +155,27 @@ done
 echo "md5sums created: ${projectResultsDir}/chr${chr}.tar.gz.md5"
 echo -e ".. finished (8/8)\n"
 
-#Remove intermediateDir
-if [ -d ${intermediateDir:-} ]; then
-        echo -n "INFO: Removing intermediateDir ${intermediateDir} ..."
-        rm -rf ${intermediateDir}
-        echo 'done.'
+echo "Checking if resultsdir and intermediatedir have the same amount of files.."
+
+countIntermediateDir=$(ll ${intermediateDir}/* | wc -l)
+countResultsDir=$(($(ll ${projectResultsDir}/liftOver/* | wc -l) + $(ll ${projectResultsDir}/phasing/* | wc -l) + $(ll ${projectResultsDir}/genotypeHarmonizer/* | wc -l) + $(ll ${projectResultsDir}/imputation_chunks/* | wc -l) + $(ll ${projectResultsDir}/imputation/* | wc -l) + $(ll ${projectResultsDir}/logs/* | wc -l)))
+
+if [ ${countIntermediateDir} == ${countResultsDir}} ];
+then
+	echo "Amount of files is te same.."
+
+	#Remove intermediateDir
+	if [ -d ${intermediateDir:-} ]; then
+		echo -n "INFO: Removing intermediateDir ${intermediateDir} ..."
+		rm -rf ${intermediateDir}
+		echo 'done.'
+
+		echo "pipeline is finished"
+		touch ${studyData}.pipeline.finished
+		echo "${studyData}.pipeline.finished is created"
+	fi
+else
+	echo -e "The amount of files is not the same:\nintermediateDir: ${countIntermediateDir}\nresultsDir: ${countResultsDir}"
 fi
 
-echo "pipeline is finished"
-
-touch ${studyData}.pipeline.finished
-
-echo "${studyData}.pipeline.finished is created"
 
