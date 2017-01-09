@@ -157,8 +157,8 @@ echo -e ".. finished (8/8)\n"
 
 echo "Checking if resultsdir and intermediatedir have the same amount of files.."
 
-countIntermediateDir=$(ll ${intermediateDir}/* | wc -l)
-countResultsDir=$(($(ll ${projectResultsDir}/liftOver/* | wc -l) + $(ll ${projectResultsDir}/phasing/* | wc -l) + $(ll ${projectResultsDir}/genotypeHarmonizer/* | wc -l) + $(ll ${projectResultsDir}/imputation_chunks/* | wc -l) + $(ll ${projectResultsDir}/imputation/* | wc -l) + $(ll ${projectResultsDir}/logs/* | wc -l)))
+countIntermediateDir=$(ls ${intermediateDir}/* | wc -l)
+countResultsDir=$(($(ls ${projectResultsDir}/liftOver/* | wc -l) + $(ls ${projectResultsDir}/phasing/* | wc -l) + $(ls ${projectResultsDir}/genotypeHarmonizer/* | wc -l) + $(ls ${projectResultsDir}/imputation_chunks/* | wc -l) + $(ls ${projectResultsDir}/imputation/* | wc -l) + $(ls ${projectResultsDir}/logs/* | wc -l)))
 
 if [ ${countIntermediateDir} == ${countResultsDir}} ];
 then
