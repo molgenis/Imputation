@@ -14,10 +14,10 @@ set -u
 
 #Create result directories
 mkdir -p ${projectResultsDir}/liftOver/
-mkdir -p ${projectResultsDir}/phasing
-mkdir -p ${projectResultsDir}/genotypeHarmonizer/
-mkdir -p ${projectResultsDir}/imputation_chunks/
-mkdir -p ${projectResultsDir}/imputation/
+#mkdir -p ${projectResultsDir}/phasing
+#mkdir -p ${projectResultsDir}/genotypeHarmonizer/
+#mkdir -p ${projectResultsDir}/imputation_chunks/
+#mkdir -p ${projectResultsDir}/imputation/
 mkdir -p ${projectResultsDir}/logs/
 mkdir -p ${projectResultsDir}/finalResults/
 
@@ -51,50 +51,50 @@ done
 echo -e ".. finished (1/8)\n"
 
 #Copy phasing files to results directory
-for i in ${chr[@]};
-do
-	echo "chr${i}"
-	echo "Copy phasing files to results directory.."
-	rsync -a ${intermediateDir}/chr${i}.phased.haps ${projectResultsDir}/phasing/
-	rsync -a ${intermediateDir}/chr${i}.phased.sample ${projectResultsDir}/phasing/
-done
+#for i in ${chr[@]};
+#do
+#	echo "chr${i}"
+#	echo "Copy phasing files to results directory.."
+#	rsync -a ${intermediateDir}/chr${i}.phased.haps ${projectResultsDir}/phasing/
+#	rsync -a ${intermediateDir}/chr${i}.phased.sample ${projectResultsDir}/phasing/
+#done
 
-echo -e ".. finished (2/8)\n"
+#echo -e ".. finished (2/8)\n"
 
 #Copy genotypeHarmonizer files to results directory
-for i in ${chr[@]};
-do
-	echo "chr${i}"
-	echo "Copy genotypeHarmonizer files to results directory.."
-	rsync -a ${intermediateDir}/chr${i}.gh.sample ${projectResultsDir}/genotypeHarmonizer/
-	rsync -a ${intermediateDir}/chr${i}.gh.haps ${projectResultsDir}/genotypeHarmonizer/
-
-done
-echo  -e ".. finished (3/8)\n"
+#for i in ${chr[@]};
+#do
+#	echo "chr${i}"
+#	echo "Copy genotypeHarmonizer files to results directory.."
+#	rsync -a ${intermediateDir}/chr${i}.gh.sample ${projectResultsDir}/genotypeHarmonizer/
+#	rsync -a ${intermediateDir}/chr${i}.gh.haps ${projectResultsDir}/genotypeHarmonizer/
+#
+#done
+#echo  -e ".. finished (3/8)\n"
 
 #Copy imputation_chunck files to results directory
 #Create new file with chunks, based on parameter file with chunk notation: chr_pos-pos
 awk '{if (NR!=1){print "chr"$1"_"$2"-"$3}}' FS="," ${githubDir}/chunks_b37.csv > ${intermediateDir}/chunks.txt
 
-echo "Copy chunk files to results directory.."
+#echo "Copy chunk files to results directory.."
 
-for i in $(cat ${intermediateDir}/chunks.txt);
-do
-	rsync -a ${intermediateDir}/${i} ${projectResultsDir}/imputation_chunks/
-done
-
-echo -e ".. finished (4/8)\n"
+#for i in $(cat ${intermediateDir}/chunks.txt);
+#do
+#	rsync -a ${intermediateDir}/${i} ${projectResultsDir}/imputation_chunks/
+#done
+#
+#echo -e ".. finished (4/8)\n"
 
 #Copy imputation files to results directory
-for i in ${chr[@]};
-do
-	echo "chr${i}"
-	echo "Copy imputation files to results directory.."
-	rsync -a ${intermediateDir}/chr${i}_concatenated ${projectResultsDir}/imputation/
-	rsync -a ${intermediateDir}/chr${i}_info_concatenated ${projectResultsDir}/imputation/
-done
+#for i in ${chr[@]};
+#do
+#	echo "chr${i}"
+#	echo "Copy imputation files to results directory.."
+#	rsync -a ${intermediateDir}/chr${i}_concatenated ${projectResultsDir}/imputation/
+#	rsync -a ${intermediateDir}/chr${i}_info_concatenated ${projectResultsDir}/imputation/
+#done
 
-echo -e ".. finished (5/8)\n"
+#echo -e ".. finished (5/8)\n"
 
 #Copy logfiles to results directory
 #If genome builds are the same, only one log file is created.
@@ -124,10 +124,10 @@ done
 
 for i in $(cat ${intermediateDir}/chunks.txt);
 do
-	rsync -a ${intermediateDir}/${i}_info ${projectResultsDir}/logs
+#	rsync -a ${intermediateDir}/${i}_info ${projectResultsDir}/logs
 	rsync -a ${intermediateDir}/${i}_info_by_sample ${projectResultsDir}/logs
 	rsync -a ${intermediateDir}/${i}_summary ${projectResultsDir}/logs
-	rsync -a ${intermediateDir}/${i}_warnings ${projectResultsDir}/logs
+#	rsync -a ${intermediateDir}/${i}_warnings ${projectResultsDir}/logs
 done
 echo -e ".. finished (6/8)\n"
 
@@ -135,9 +135,12 @@ echo -e ".. finished (6/8)\n"
 echo "chr${chr}"
 echo "Creating tar.gz file per chromosome in results directory.."
 
+#Rename to create consistency in finalresult
+rename '.gh'  '' ${intermediateDir}/chr${i}.{haps,sample}
+
 for i in ${chr[@]};
 do
-	tar -cvzf ${projectResultsDir}/finalResults/chr${i}.tar.gz ${intermediateDir}/chr${i}.phased.haps ${intermediateDir}/chr${i}.phased.sample ${intermediateDir}/chr${i}_concatenated ${intermediateDir}/chr${i}_info_concatenated
+	tar -cvzf ${projectResultsDir}/finalResults/chr${i}.tar.gz ${intermediateDir}/chr${i}.haps ${intermediateDir}/chr${i}.sample ${intermediateDir}/chr${i}_concatenated ${intermediateDir}/chr${i}_info_concatenated
 done
 
 echo "Tar.gz file created: ${projectResultsDir}/chr${chr}.tar.gz"
@@ -155,14 +158,14 @@ done
 echo "md5sums created: ${projectResultsDir}/chr${chr}.tar.gz.md5"
 echo -e ".. finished (8/8)\n"
 
-echo "Checking if resultsdir and intermediatedir have the same amount of files.."
+#echo "Checking if resultsdir and intermediatedir have the same amount of files.."
 
-countIntermediateDir=$(ls ${intermediateDir}/* | wc -l)
-countResultsDir=$(($(ls ${projectResultsDir}/liftOver/* | wc -l) + $(ls ${projectResultsDir}/phasing/* | wc -l) + $(ls ${projectResultsDir}/genotypeHarmonizer/* | wc -l) + $(ls ${projectResultsDir}/imputation_chunks/* | wc -l) + $(ls ${projectResultsDir}/imputation/* | wc -l) + $(ls ${projectResultsDir}/logs/* | wc -l)))
+#countIntermediateDir=$(ls ${intermediateDir}/* | wc -l)
+#countResultsDir=$(($(ls ${projectResultsDir}/liftOver/* | wc -l) + $(ls ${projectResultsDir}/phasing/* | wc -l) + $(ls ${projectResultsDir}/genotypeHarmonizer/* | wc -l) + $(ls ${projectResultsDir}/imputation_chunks/* | wc -l) + $(ls ${projectResultsDir}/imputation/* | wc -l) + $(ls ${projectResultsDir}/logs/* | wc -l)))
 
-if [ ${countIntermediateDir} == ${countResultsDir}} ];
-then
-	echo "Amount of files is te same.."
+#if [ ${countIntermediateDir} == ${countResultsDir}} ];
+#then
+#	echo "Amount of files is te same.."
 
 	#Remove intermediateDir
 	if [ -d ${intermediateDir:-} ]; then
@@ -174,8 +177,8 @@ then
 		touch ${studyData}.pipeline.finished
 		echo "${studyData}.pipeline.finished is created"
 	fi
-else
-	echo -e "The amount of files is not the same:\nintermediateDir: ${countIntermediateDir}\nresultsDir: ${countResultsDir}"
-fi
+#else
+#	echo -e "The amount of files is not the same:\nintermediateDir: ${countIntermediateDir}\nresultsDir: ${countResultsDir}"
+#fi
 
 
