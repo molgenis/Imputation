@@ -9,7 +9,7 @@ RUNID=XX
 WORKDIR=/groups/umcg-gaf/tmp04/generatedscripts/${PROJECT}/
 GITHUBDIR=/home/umcg-mbijlsma/github/Imputation/
 INTERMEDIATEDIR=/groups/umcg-gaf/tmp04/tmp/${PROJECT}/
-RUNDIR=${WORKDIR}/projects/${PROJECT}/run${RUNID}/jobs/
+RUNDIR=/groups/umcg-gaf/tmp04/projects/${PROJECT}/run${RUNID}/jobs/
 
 
 echo "$WORKDIR AND $RUNNUMBER"
