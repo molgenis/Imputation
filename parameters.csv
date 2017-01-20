@@ -1,14 +1,13 @@
 gafTmp,/groups/umcg-gaf/tmp04/
-homeDir,${gafTmp}/projects/
+workDir,${gafTmp}/generatedscripts/
 githubDir,/home/umcg-mbijlsma/github/Imputation/
 dataDir,/apps/data/
 tempDir,${gafTmp}/temp
-projectDir,${homeDir}/${studyData}/${run}/
+projectDir,${gafTmp}/projects/${studyData}/${run}/
 
 
 ##LIFTOVER PARAMETERS
-liftOverInputDir,${homeDir}/${studyData}/
-liftOverInputFile,${liftOverInputDir}/chr${chr}
+liftOverInputFile,${workDir}/${studyData}/input/chr${chr}
 liftOverChainFileDir,${githubDir}/chainFiles/
 
 
@@ -39,7 +38,7 @@ finalResultsDir,${projectDir}/results/finalResults/
 
 
 ##TMP FOLDERS
-intermediateDir,${homeDir}/tmp/${studyData}/
+intermediateDir,${gafTmp}/tmp/${studyData}/
 outputPerChr,${intermediateDir}/chr${chr}
 outputPerChunk,${intermediateDir}/chr${chrom}_${fromChrPos}-${toChrPos}
 

@@ -3,11 +3,14 @@
 module load Molgenis-Compute/v16.08.1-Java-1.8.0_74
 module list
 
+#TODO change GITHUBDIR in EBROOTMOLGENISMINIMPUTATION
 PROJECT=XX
 RUNID=XX
-WORKDIR=/home/umcg-mbijlsma/test/
+WORKDIR=/groups/umcg-gaf/tmp04/generatedscripts/${PROJECT}/
 GITHUBDIR=/home/umcg-mbijlsma/github/Imputation/
-WORKFLOW=${GITHUBDIR}/workflow.csv
+INTERMEDIATEDIR=/groups/umcg-gaf/tmp04/tmp/${PROJECT}/
+RUNDIR=${WORKDIR}/projects/${PROJECT}/run${RUNID}/jobs/
+
 
 echo "$WORKDIR AND $RUNNUMBER"
 
@@ -16,28 +19,27 @@ then
      rm .compute.properties
 fi
 
-mkdir -p  /groups/umcg-gaf/tmp04//projects/tmp/${PROJECT}
-mkdir -p ${WORKDIR}/generatedscripts/
+mkdir -p  ${INTERMEDIATEDIR}
 
-if [ -f ${WORKDIR}/generatedscripts/converted_parameters.csv  ];
+if [ -f ${WORKDIR}/parameters_converted.csv  ];
 then
-        rm -rf ${WORKDIR}/generatedscripts/converted_parameters.csv
+        rm -rf ${WORKDIR}/parameters_converted.csv
 fi
 
 
 perl ${GITHUBDIR}/convertParametersGitToMolgenis.pl ${GITHUBDIR}/parameters.csv > \
-${WORKDIR}/generatedscripts/parameters_converted.csv
+${WORKDIR}/parameters_converted.csv
 
 
 sh $EBROOTMOLGENISMINCOMPUTE/molgenis_compute.sh \
--p ${WORKDIR}/generatedscripts/parameters_converted.csv \
+-p ${WORKDIR}/parameters_converted.csv \
 -p ${WORKDIR}/datasheet.csv \
 -p ${GITHUBDIR}/chromosomes.csv \
 -p ${GITHUBDIR}/chunks_b37.csv \
--w ${WORKFLOW} \
--rundir ${WORKDIR}/Projects/${PROJECT}/run_${RUNID}/jobs \
+-w ${GITHUBDIR}/workflow.csv \
+-rundir ${RUNDIR} \
 -b slurm \
--weave \
+--weave \
 --generate
 
 
