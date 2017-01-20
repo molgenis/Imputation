@@ -1,25 +1,25 @@
 #MOLGENIS walltime=05:59:59 mem=30gb ppn=1
 
-#string geneticMapImputation
+#string outputPerChunk
+#string imputeVersion
 #string referenceGenome
-#string pathToPhasedReference1000G
-#string pathToPhasedReference1000G
+#string intermediateDir
 #string chrom
+#string geneticMapImputation
+#string pathToPhasedReference1000G
 #string fromChrPos
 #string toChrPos
-#string intermediateDir
-#string imputeVersion
-#string outputPerChunk
+#string pathToPhasedReferenceGoNL
 
-set -e
-set -u
 
+#Create tmp/tmp to save unfinished results
 makeTmpDir ${outputPerChunk}
 tmpOutputPerChunk=${MC_tmpFile}
 
-#Load modules
+#Load modules and list currently loaded modules
 module load ${imputeVersion}
 ml
+
 
 #Check if reference genomes are the same and start imputation.
 if [ "${referenceGenome}" == "1000G" ];
@@ -27,8 +27,8 @@ then
 	if $EBROOTIMPUTE2/impute2 \
 		-known_haps_g ${intermediateDir}/chr${chrom}.gh.haps \
 		-m ${geneticMapImputation} \
-		-h ${pathToPhasedReference1000G}/ALL_${referenceGenome}_phase1integrated_v3_chr${chrom}_impute.hap.gz \
-		-l ${pathToPhasedReference1000G}/ALL_${referenceGenome}_phase1integrated_v3_chr${chrom}_impute.legend.gz \
+		-h ${pathToPhasedReference1000G}.hap.gz \
+		-l ${pathToPhasedReference1000G}.legend.gz \
 		-int ${fromChrPos} ${toChrPos} \
 		-o ${tmpOutputPerChunk} \
 		-use_prephased_g
@@ -56,8 +56,8 @@ then
 	if $EBROOTIMPUTE2/impute2 \
 		-known_haps_g ${intermediateDir}/chr${chrom}.gh.haps \
 		-m ${geneticMapImputation} \
-		-h ${pathToPhasedReferenceGoNL}/chr${chrom}.hap.gz \
-		-l ${pathToPhasedReferenceGoNL}/chr${chrom}.legend.gz \
+		-h ${pathToPhasedReferenceGoNL}.hap.gz \
+		-l ${pathToPhasedReferenceGoNL}.legend.gz \
 		-int ${fromChrPos} ${toChrPos} \
 		-o ${tmpOutputPerChunk} \
 		-use_prephased_g

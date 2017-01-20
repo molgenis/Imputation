@@ -4,7 +4,6 @@ githubDir,/home/umcg-mbijlsma/github/Imputation/
 dataDir,/apps/data/
 tempDir,${gafTmp}/temp
 projectDir,${homeDir}/${studyData}/${run}/
-projectResultsDir,${projectDir}/results/
 
 
 ##LIFTOVER PARAMETERS
@@ -23,9 +22,20 @@ pathToReferenceGoNL,${dataDir}/${referenceGenome}/release5_noContam_noChildren_w
 
 
 ##IMPUTATION PARAMETERS
-pathToPhasedReference1000G,${dataDir}/${referenceGenome}/imputationReference_phased_b37/
-pathToPhasedReferenceGoNL,${dataDir}/${referenceGenome}/imputationReference_phased_b37/
+pathToPhasedReference1000G,${dataDir}/${referenceGenome}/imputationReference_phased_b37/ALL_${referenceGenome}_phase1integrated_v3_chr${chrom}_impute
+pathToPhasedReferenceGoNL,${dataDir}/${referenceGenome}/imputationReference_phased_b37/chr${chrom}
 geneticMapImputation,${dataDir}/www.shapeit.fr/genetic_map_b37/genetic_map_chr${chrom}_combined_b37.txt
+
+
+##CONCATCHUNKS PARAMETERS
+concatChunksFile,${intermediateDir}/chr${chrom}_concatenated
+concatChunksInfoFile,${intermediateDir}/chr${chrom}_info_concatenated
+
+
+##COPYTORESULTSDIR PARAMETERS
+liftOverResultsDir,${projectDir}/results/liftOver/
+logsResultsDir,${projectDir}/results/logs/
+finalResultsDir,${projectDir}/results/finalResults/
 
 
 ##TMP FOLDERS
