@@ -1,17 +1,16 @@
 #MOLGENIS walltime=05:59:59 mem=10gb ppn=1
 
-#string genomeBuild
-#string chr
-#string liftOverChainFileDir
-#string intermediateDir
 #string outputPerChr
-#string liftOverInputFile
 #string liftOverUcscVersion
 #string plinkVersion
+#string intermediateDir
+#string genomeBuild
+#string liftOverInputFile
+#string chr
+#string liftOverChainFileDir
 
-set -e
-set -u
 
+#Create tmp/tmp to save unfinished results
 makeTmpDir ${outputPerChr}
 tmpOutputPerChr=${MC_tmpFile}
 
@@ -21,12 +20,18 @@ module load ${liftOverUcscVersion}
 module load ${plinkVersion}
 ml
 
-mkdir -p  ${intermediateDir}
 
-#If genome build is not one of the following, throw error.
-if ! [[ ${genomeBuild} == "hg19" ]] && ! [[ ${genomeBuild} == "GRCh37" ]] && ! [[ ${genomeBuild} == "hg18" ]] && ! [[ ${genomeBuild} == "GRCh36" ]] && ! [[ ${genomeBuild} == "hg38" ]] && ! [[ ${genomeBuild} == "GRCh38" ]];then
+#If genome build is not one of the following, exit script and remove tmp/tmp
+if ! [[ ${genomeBuild} == "hg19" ]] &&
+   ! [[ ${genomeBuild} == "GRCh37" ]] &&
+   ! [[ ${genomeBuild} == "hg18" ]] &&
+   ! [[ ${genomeBuild} == "GRCh36" ]] &&
+   ! [[ ${genomeBuild} == "hg38" ]] &&
+   ! [[ ${genomeBuild} == "GRCh38" ]];then
+
 	echo "Unsupported genome build: ${genomeBuild}"
 	trap - EXIT
+
 	if [ -d ${MC_tmpFolder:-} ]; then
 		echo -n "INFO: Removing MC_tmpFolder ${MC_tmpFolder} ..."
 		rm -rf ${MC_tmpFolder}
@@ -34,6 +39,7 @@ if ! [[ ${genomeBuild} == "hg19" ]] && ! [[ ${genomeBuild} == "GRCh37" ]] && ! [
 	fi
 	exit 1
 fi
+
 
 #Creating ped and map files from (plink) bed file
 plink \
@@ -44,6 +50,7 @@ plink \
 
 echo -e "\nmv ${tmpOutputPerChr}.{ped,map} ${intermediateDir}"
 mv ${tmpOutputPerChr}.{ped,map,log} ${intermediateDir}
+
 
 #If genome build of study data is the same as the genome build of the reference data, the script stops here.
 #All data with other genome builds will continue with the liftover step.
@@ -134,5 +141,4 @@ if ! [[ ${genomeBuild} == "hg19" ]] && ! [[ ${genomeBuild} == "GRCh37" ]];then
 	fi
 else
 	echo -e "Genome builds of study data and reference data are the same, ped and map files are created and can be found here: ${intermediateDir}\n"
-fi
-
+fi"

@@ -1,22 +1,23 @@
 #MOLGENIS walltime=05:59:59 mem=30gb ppn=21
-#string chr
-#string shapeItVersion
-#string geneticMapPhasing
-#string studyData
-#string intermediateDir
+
 #string outputPerChr
+#string shapeItVersion
+#string intermediateDir
+#string chr
+#string geneticMapPhasing
 
-set -e
-set -u
 
+#Create tmp/tmp to save unfinished results
 makeTmpDir ${outputPerChr}
 tmpOutputPerChr=${MC_tmpFile}
 
-#load modules
+
+#load modules and list currently loaded modules
 module load ${shapeItVersion}
 ml
 
-#Phasing the study data
+
+#Phasing study data
 shapeit -P ${intermediateDir}/chr${chr} \
         -M ${geneticMapPhasing} \
         -O ${tmpOutputPerChr}.phased \
@@ -26,5 +27,5 @@ shapeit -P ${intermediateDir}/chr${chr} \
 echo "mv ${tmpOutputPerChr}.{phased.sample,phased.haps,phasing.log,phasing.snp.mm,phasing.ind.mm} ${intermediateDir}"
 mv ${tmpOutputPerChr}.{phased.sample,phased.haps,phasing.log,phasing.snp.mm,phasing.ind.mm} ${intermediateDir}
 
-echo -e "\nPhasing is finished."
+echo -e "\nPhasing is finished, haps and sample files can be found here: ${intermediateDir}."
 
