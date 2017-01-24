@@ -58,10 +58,10 @@ if ! [[ ${genomeBuild} == "hg19" ]] && ! [[ ${genomeBuild} == "GRCh37" ]];then
 
 	if [[ ${genomeBuild} == "hg18" ]] || [[ ${genomeBuild} == "GRCh36" ]];then
 		chainFile="hg18ToHg19.over.chain"
-
+		echo "ChainFile used: ${chainFile}"
 	elif [[ ${genomeBuild} == "hg38" ]] || [[ ${genomeBuild} == "GRCh38" ]];then
 		chainFile="hg38ToHg19.over.chain"
-
+		echo "ChainFile used: ${chainFile}"
 	else
 		echo "Something went wrong..."
 		trap - EXIT
@@ -141,4 +141,4 @@ if ! [[ ${genomeBuild} == "hg19" ]] && ! [[ ${genomeBuild} == "GRCh37" ]];then
 	fi
 else
 	echo -e "Genome builds of study data and reference data are the same, ped and map files are created and can be found here: ${intermediateDir}\n"
-fi"
+fi
