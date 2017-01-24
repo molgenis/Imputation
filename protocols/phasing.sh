@@ -1,4 +1,4 @@
-#MOLGENIS walltime=05:59:59 mem=30gb ppn=21
+#MOLGENIS walltime=23:59:59 mem=30gb ppn=21
 
 #string outputPerChr
 #string shapeItVersion

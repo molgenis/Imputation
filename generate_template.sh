@@ -1,6 +1,6 @@
 #!/bin/bash
 
-module load Molgenis-Compute/v16.08.1-Java-1.8.0_74
+module load Molgenis-Compute/v16.11.1-Java-1.8.0_74
 module list
 
 #TODO change GITHUBDIR in EBROOTMOLGENISMINIMPUTATION
@@ -19,7 +19,7 @@ then
      rm .compute.properties
 fi
 
-mkdir -p  ${INTERMEDIATEDIR}
+mkdir -p ${INTERMEDIATEDIR}
 
 if [ -f ${WORKDIR}/parameters_converted.csv  ];
 then

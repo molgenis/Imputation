@@ -34,13 +34,13 @@ then
 
 elif [ "${referenceGenome}" == "gonl" ];
 then
-	java -XX:ParallelGCThreads=2 -Djava.io.tmpdir=${tempDir} -Xmx8g -jar ${EBROOTGENOTYPEHARMONIZER}/GenotypeHarmonizer.jar
+	java -XX:ParallelGCThreads=2 -Djava.io.tmpdir=${tempDir} -Xmx8g -jar ${EBROOTGENOTYPEHARMONIZER}/GenotypeHarmonizer.jar \
                 --input ${intermediateDir}/chr${chr}.phased \
                 --inputType SHAPEIT2 \
                 --ref ${pathToReferenceGoNL} \
                 --refType VCF \
                 --forceChr ${chr} \
-                --output ${intermediateDir}/${tmpOutputPerChr}.gh \
+                --output ${tmpOutputPerChr}.gh \
                 --outputType SHAPEIT2
 
 else
