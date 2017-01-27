@@ -73,10 +73,12 @@ echo "Creating tar.gz file per chromosome in results directory.."
 
 #Rename to create consistency in finalresult
 rename '.gh'  '' ${intermediateDir}/chr${i}.{haps,sample}
+rename '_concatenated'  '' ${intermediateDir}/chr${i}_concatenated
+rename '_concatenated'  '' ${intermediateDir}/chr${i}_info_concatenated 
 
 for i in ${chr[@]};
 do
-	tar -cvzf ${finalResultsDir}/chr${i}.tar.gz ${intermediateDir}/chr${i}.haps ${intermediateDir}/chr${i}.sample ${intermediateDir}/chr${i}_concatenated ${intermediateDir}/chr${i}_info_concatenated
+	tar -cvzf ${finalResultsDir}/chr${i}.tar.gz ${intermediateDir}/chr${i}.haps ${intermediateDir}/chr${i}.sample ${intermediateDir}/chr${i} ${intermediateDir}/chr${i}_info
 done
 
 echo "Tar.gz file created: ${finalResultsDir}/chr${chr}.tar.gz"
