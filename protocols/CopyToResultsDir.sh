@@ -129,12 +129,10 @@ do
 done
 
 #Create tar.gz per chromosome
-#Remove tar.gz first, in case a job needs to be restarted
 printf "Creating tar.gz file per chromosome in results directory\n"
 
 for i in ${CHRS[@]}
 do
-	rm -rf ${finalResultsDir}/chr${i}.tar.gz
 	tar -cvzf ${finalResultsDir}/chr${i}.tar.gz ${intermediateDir}/chr${i}.haps ${intermediateDir}/chr${i}.sample ${intermediateDir}/chr${i} ${intermediateDir}/chr${i}_info
 
 	printf "."
@@ -143,7 +141,6 @@ done
 printf " finished (4/5)\n"
 
 #Create md5sum for tar.gz file per chromosome
-#Remove md5sum first, in case a job needs to be restarted
 printf "Creating md5sums for tar.gz files in results directory "
 
 #Change directory to results directory to perform md5sum
@@ -151,7 +148,6 @@ cd ${finalResultsDir}
 
 for i in ${CHRS[@]}
 do
-	rm -rf chr${i}.tar.gz.md5
 	md5sum chr${i}.tar.gz > chr${i}.tar.gz.md5
 
 	printf "."
