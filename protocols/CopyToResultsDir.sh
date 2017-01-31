@@ -97,28 +97,28 @@ printf " finished (3/5)\n"
 
 #Rename to create consistency in finalresult
 #Print message when files are already renamed (restart of job)
-if [[ -f chr${chr}.haps ]]
+if ! [[ -f ${intermediateDir}/chr${chr}.haps ]]
 then
-	rename '.gh'  '' /groups/umcg-gaf/tmp04//tmp/test_Tessel//chr${chr}.gh.haps
+	rename '.gh'  '' ${intermediateDir}/chr${chr}.gh.haps
 else
 	echo "Haps file is already renamed..."
 fi
 
-if [[ -f chr${chr}.sample ]]
+if ! [[ -f ${intermediateDir}/chr${chr}.sample ]]
 then
-        rename '.gh'  '' /groups/umcg-gaf/tmp04//tmp/test_Tessel//chr${chr}.gh.sample
+        rename '.gh'  '' ${intermediateDir}/chr${chr}.gh.sample
 else
         echo "Sample file is already renamed..."
 fi
 
-if [[ -f chr${chr} ]]
+if ! [[ -f ${intermediateDir}/chr${chr} ]]
 then
 	rename '_concatenated'  '' ${intermediateDir}/chr${chr}_concatenated
 else
 	echo "Concatenated file is already renamed..."
 fi
 
-if [[ -f chr${chr}_info ]]
+if ! [[ -f ${intermediateDir}/chr${chr}_info ]]
 then
 	rename '_concatenated'  '' ${intermediateDir}/chr${chr}_info_concatenated
 else
