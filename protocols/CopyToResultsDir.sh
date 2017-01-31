@@ -97,40 +97,44 @@ printf " finished (3/5)\n"
 
 #Rename to create consistency in finalresult
 #Print message when files are already renamed (restart of job)
-if ! [[ -f ${intermediateDir}/chr${chr}.haps ]]
-then
-	rename '.gh'  '' ${intermediateDir}/chr${chr}.gh.haps
-else
-	echo "Haps file is already renamed..."
-fi
+for i in ${CHRS[@]}
+do
+	if ! [[ -f ${intermediateDir}/chr${i}.haps ]]
+	then
+		rename '.gh'  '' ${intermediateDir}/chr${i}.gh.haps
+	else
+		echo "Haps file of chr${i} is already renamed..."
+	fi
 
-if ! [[ -f ${intermediateDir}/chr${chr}.sample ]]
-then
-        rename '.gh'  '' ${intermediateDir}/chr${chr}.gh.sample
-else
-        echo "Sample file is already renamed..."
-fi
+	if ! [[ -f ${intermediateDir}/chr${i}.sample ]]
+	then
+		rename '.gh'  '' ${intermediateDir}/chr${i}.gh.sample
+	else
+		echo "Sample file of chr${i} is already renamed..."
+	fi
 
-if ! [[ -f ${intermediateDir}/chr${chr} ]]
-then
-	rename '_concatenated'  '' ${intermediateDir}/chr${chr}_concatenated
-else
-	echo "Concatenated file is already renamed..."
-fi
+	if ! [[ -f ${intermediateDir}/chr${i} ]]
+	then
+		rename '_concatenated'  '' ${intermediateDir}/chr${i}_concatenated
+	else
+		echo "Concatenated file of chr${i} is already renamed..."
+	fi
 
-if ! [[ -f ${intermediateDir}/chr${chr}_info ]]
-then
-	rename '_concatenated'  '' ${intermediateDir}/chr${chr}_info_concatenated
-else
-	echo "Info file is already renamed..."
-fi
-
+	if ! [[ -f ${intermediateDir}/chr${i}_info ]]
+	then
+		rename '_concatenated'  '' ${intermediateDir}/chr${i}_info_concatenated
+	else
+		echo "Info file of chr${i} is already renamed..."
+	fi
+done
 
 #Create tar.gz per chromosome
-printf "Creating tar.gz file per chromosome in results directory "
+#Remove tar.gz first, in case a job needs to be restarted
+printf "Creating tar.gz file per chromosome in results directory\n"
 
 for i in ${CHRS[@]}
 do
+	rm -rf ${finalResultsDir}/chr${i}.tar.gz
 	tar -cvzf ${finalResultsDir}/chr${i}.tar.gz ${intermediateDir}/chr${i}.haps ${intermediateDir}/chr${i}.sample ${intermediateDir}/chr${i} ${intermediateDir}/chr${i}_info
 
 	printf "."
@@ -139,13 +143,15 @@ done
 printf " finished (4/5)\n"
 
 #Create md5sum for tar.gz file per chromosome
+#Remove md5sum first, in case a job needs to be restarted
 printf "Creating md5sums for tar.gz files in results directory "
 
-#Change directory to results directory to perform md5
+#Change directory to results directory to perform md5sum
 cd ${finalResultsDir}
 
 for i in ${CHRS[@]}
 do
+	rm -rf chr${i}.tar.gz.md5
 	md5sum chr${i}.tar.gz > chr${i}.tar.gz.md5
 
 	printf "."
