@@ -1,7 +1,7 @@
 step,protocol,dependencies
-s01_liftOver,protocols/liftOver.sh,
-s02_phasing,protocols/phasing.sh,s01_liftOver
-s03_genotypeHarmonizer,protocols/genotypeHarmonizer.sh,s02_phasing
-s04_imputation,protocols/imputation.sh,s03_genotypeHarmonizer
-s05_concatChunks,protocols/concatChunks.sh,s04_imputation
-s06_copyToResultsDir,protocols/copyToResultsDir.sh,s05_concatChunks
+s01_LiftOver,protocols/LiftOver.sh,
+s02_Phasing,protocols/Phasing.sh,s01_LiftOver
+s03_GenotypeHarmonizer,protocols/GenotypeHarmonizer.sh,s02_Phasing
+s04_Imputation,protocols/Imputation.sh,s03_GenotypeHarmonizer
+s05_ConcatChunks,protocols/ConcatChunks.sh,s04_Imputation
+s06_CopyToResultsDir,protocols/CopyToResultsDir.sh,s05_ConcatChunks

@@ -8,7 +8,7 @@ projectDir,${gafTmp}/projects/${studyData}/${run}/
 
 ##LIFTOVER PARAMETERS
 liftOverInputFile,${workDir}/${studyData}/input/chr${chr}
-liftOverChainFileDir,${githubDir}/chainFiles/
+liftOverChainFileDir,${dataDir}/chainFiles/
 
 
 ##PHASING PARAMETERS
