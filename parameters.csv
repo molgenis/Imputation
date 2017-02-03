@@ -1,3 +1,4 @@
+##DEFAULT DIRECTORY PARAMETERS
 gafTmp,/groups/umcg-gaf/tmp04/
 workDir,${gafTmp}/generatedscripts/
 githubDir,/home/umcg-mbijlsma/github/Imputation/
@@ -49,7 +50,4 @@ liftOverUcscVersion,liftOverUcsc/20161011
 shapeItVersion,shapeit/v2.r837-static
 genotypeHarmonizerVersion,GenotypeHarmonizer/1.4.18-Java-1.8.0_45
 imputeVersion,IMPUTE2/2.3.0_x86_64_static
-
-
-
-
+pigzVersion,pigz/2.3.1-foss-2015b

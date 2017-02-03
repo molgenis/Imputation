@@ -28,4 +28,3 @@ echo -e "\nmv ${tmpOutputPerChr}.{phased.sample,phased.haps,phasing.log,phasing.
 mv "${tmpOutputPerChr}".{phased.sample,phased.haps,phasing.log,phasing.snp.mm,phasing.ind.mm} "${intermediateDir}"
 
 echo -e "\nPhasing is finished, resulting haps and sample files can be found here: ${intermediateDir}\n"
-

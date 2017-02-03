@@ -46,5 +46,3 @@ sh $EBROOTMOLGENISMINCOMPUTE/molgenis_compute.sh \
 -b slurm \
 --weave \
 --generate
-
-
