@@ -1,7 +1,6 @@
 ##DEFAULT DIRECTORY PARAMETERS
 gafTmp,/groups/umcg-gaf/tmp04/
 workDir,${gafTmp}/generatedscripts/
-githubDir,/home/umcg-mbijlsma/github/Imputation/
 dataDir,/apps/data/
 tempDir,${gafTmp}/temp
 projectDir,${gafTmp}/projects/${studyData}/${run}/
@@ -45,6 +44,7 @@ outputPerChunk,${intermediateDir}/chr${chrom}_${fromChrPos}-${toChrPos}
 
 
 ##MODULE VERSIONS
+pipelineVersion,Imputation/1.0.0
 plinkVersion,plink/1.9-foss-2015b
 liftOverUcscVersion,liftOverUcsc/20161011
 shapeItVersion,shapeit/v2.r837-static

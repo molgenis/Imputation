@@ -5,13 +5,13 @@
 #string finalResultsDir
 #list chr
 #string intermediateDir
-#string githubDir
 #string projectDir
 #string studyData
 #string pigzVersion
 
 
 #Load modules and list currently loaded modules
+module load ${pipelineVersion}
 module load ${pigzVersion}
 module list
 
@@ -87,7 +87,7 @@ printf " finished (2/5)\n"
 
 
 #Create new file with chunks, based on parameter file with chunk notation: chr_pos-pos
-awk '{if (NR!=1){print "chr"$1"_"$2"-"$3}}' FS="," ${githubDir}/chunks_b37.csv > ${intermediateDir}/chunks.txt
+awk '{if (NR!=1){print "chr"$1"_"$2"-"$3}}' FS="," ${EBROOTIMPUTATION}/chunks_b37.csv > ${intermediateDir}/chunks.txt
 
 
 #Copy chunk file statistics to results directory
