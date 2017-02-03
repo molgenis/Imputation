@@ -3,13 +3,18 @@
 module load Molgenis-Compute/v16.11.1-Java-1.8.0_74
 module list
 
-#TODO change GITHUBDIR in EBROOTMOLGENISMINIMPUTATION
 PROJECT=XX
 RUNID=XX
-WORKDIR=/groups/umcg-gaf/tmp04/generatedscripts/${PROJECT}/
+
+TMPDIRECTORY=$(basename $(cd ../../ && pwd ))
+GROUP=$(basename $(cd ../../../ && pwd ))
+
+#TODO change GITHUBDIR in EBROOTMOLGENISMINIMPUTATION
+HOMEDIR=/groups/${GROUP}/${TMPDIRECTORY}/
+WORKDIR=${HOMEDIR}/generatedscripts/${PROJECT}/
 GITHUBDIR=/home/umcg-mbijlsma/github/Imputation/
-INTERMEDIATEDIR=/groups/umcg-gaf/tmp04/tmp/${PROJECT}/
-RUNDIR=/groups/umcg-gaf/tmp04/projects/${PROJECT}/run${RUNID}/jobs/
+INTERMEDIATEDIR=${HOMEDIR}/tmp/${PROJECT}/
+RUNDIR=${HOMEDIR}/projects/${PROJECT}/run${RUNID}/jobs/
 
 
 echo "$WORKDIR AND $RUNNUMBER"
@@ -41,5 +46,3 @@ sh $EBROOTMOLGENISMINCOMPUTE/molgenis_compute.sh \
 -b slurm \
 --weave \
 --generate
-
-

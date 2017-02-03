@@ -14,7 +14,7 @@ tmpOutputPerChr=${MC_tmpFile}
 
 #load modules and list currently loaded modules
 module load ${shapeItVersion}
-ml
+module list
 
 
 #Phasing study data
@@ -24,8 +24,7 @@ shapeit -P ${intermediateDir}/chr${chr} \
 	--output-log ${tmpOutputPerChr}.phasing.log \
 	--thread 20
 
-echo "mv ${tmpOutputPerChr}.{phased.sample,phased.haps,phasing.log,phasing.snp.mm,phasing.ind.mm} ${intermediateDir}"
-mv ${tmpOutputPerChr}.{phased.sample,phased.haps,phasing.log,phasing.snp.mm,phasing.ind.mm} ${intermediateDir}
+echo -e "\nmv ${tmpOutputPerChr}.{phased.sample,phased.haps,phasing.log,phasing.snp.mm,phasing.ind.mm} ${intermediateDir}"
+mv "${tmpOutputPerChr}".{phased.sample,phased.haps,phasing.log,phasing.snp.mm,phasing.ind.mm} "${intermediateDir}"
 
-echo -e "\nPhasing is finished, haps and sample files can be found here: ${intermediateDir}."
-
+echo -e "\nPhasing is finished, resulting haps and sample files can be found here: ${intermediateDir}\n"
