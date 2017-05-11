@@ -25,9 +25,9 @@ Tools used by the LiftOver step:
 
 During this step, the haplotype structure of the data is determined.
 
-Tools used by the LiftOver step:
+Tools used by the Phasing step:
 
-* SHAPIT, v2.r837-static
+* SHAPEIT, v2.r837-static
 
 
 ### Step 3, GenotypeHarmonizer 
