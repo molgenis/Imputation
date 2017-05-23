@@ -55,40 +55,40 @@ Tools used by the Imputation step:
 gafTmp,/groups/umcg-gaf/tmp04/ --> gafTmp,/groups/${YOUR_GROUP_NAME}/tmp04/
 
 ### 1) Create a directory for your project
-'''bash
+```bash
 mkdir /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}
-'''
+```
 
 ### 2) Copy datasheet.csv to this directory and adjust the file to match your project
-'''bash
+```bash
 cp datasheet.csv /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/
-'''
+```
 -studyData: name of your project
 -genomeBuild: The genomebuild of your data
 -referenceGenome: The reference genome to phase against, currently supported: gonl and 1000G
 -run: name of the run
 
 ### 3) Copy generate_template.sh to this directory and change the default settings to match your project
-'''bash
+```bash
 cp generate_template.sh /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/
-'''
+```
 
 ### 4) Create a folder called "input" and copy your data (.bed, .bim, .fam per chromosome) there
-'''bash
+```bash
 cp ${YOUR_DATA_FILES} /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/input/
-'''
+```
 
 ### 5) Submit generate_template.sh
-'''bash
+```bash
 sh generate_template.sh
-'''
+```
 Your jobs are generated and can be found in this folder:
 /groups/${GROUP}/tmp04/projects/${PROJECT}/${RUNID}/jobs/
 
 ### 6) Submit your jobs
-'''bash
+```bash
 sh submit.sh
-'''
+```
 Your results can be found here:
 /groups/${GROUP}/tmp04/projects/${PROJECT}/${RUNID}/results/
 
