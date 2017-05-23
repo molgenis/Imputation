@@ -48,6 +48,17 @@ Tools used by the Imputation step:
 * IMPUTE2, version 2.3.0_x86_64_static 
 
 
+
+
+
+
+
+
+
+
+
+
+
 ## Running the imputation pipeline
 
 **_NOTE:_** Change this line in the parameters file in order to match the group you are running the pipeline in:
