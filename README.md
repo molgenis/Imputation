@@ -64,7 +64,7 @@ cp datasheet.csv /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/
 ```
 * studyData: Name of your project
 * genomeBuild: The genomebuild of your data
-* referenceGenome: The reference genome to phase against, currently supported: gonl and 1000G
+* referenceGenome: The reference genome used for imputation, currently supported: gonl and 1000G
 * run: Name of the run (e.g. run01)
 
 ### 3) Copy generate_template.sh to this directory and change the default settings to match your project
