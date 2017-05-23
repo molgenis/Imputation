@@ -63,10 +63,10 @@ mkdir /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}
 ```bash
 cp datasheet.csv /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/
 ```
--studyData: name of your project
--genomeBuild: The genomebuild of your data
--referenceGenome: The reference genome to phase against, currently supported: gonl and 1000G
--run: name of the run
+* studyData: name of your project
+* genomeBuild: The genomebuild of your data
+* referenceGenome: The reference genome to phase against, currently supported: gonl and 1000G
+* run: name of the run
 
 ### 3) Copy generate_template.sh to this directory and change the default settings to match your project
 ```bash
