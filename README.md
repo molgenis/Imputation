@@ -47,17 +47,7 @@ Tools used by the Imputation step:
 
 * IMPUTE2, version 2.3.0_x86_64_static 
 
-
-
-
-
-
-
-
-
-
-
-
+<br />
 
 ## Running the imputation pipeline
 
