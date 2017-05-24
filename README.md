@@ -51,8 +51,7 @@ Tools used by the Imputation step:
 
 ## Running the imputation pipeline
 
-**_NOTE:_** Change this line in the parameters file in order to match the group you are running the pipeline in:
-gafTmp,/groups/umcg-gaf/tmp04/ --> gafTmp,/groups/${YOUR_GROUP_NAME}/tmp04/
+**_NOTE:_** Change this line in the parameters file in order to match the group on the reasearch cluster you are running the pipeline in: gafTmp,/groups/umcg-gaf/tmp04/ --> gafTmp,/groups/${YOUR_GROUP_NAME}/tmp04/
 
 ### 1) Create a directory for your project
 ```bash
