@@ -77,7 +77,7 @@ cp generate_template.sh /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/
 cp ${YOUR_DATA_FILES} /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/input/
 ```
 
-### 5) Submit generate_template.sh
+### 5) Generate your jobs
 ```bash
 sh generate_template.sh
 ```
