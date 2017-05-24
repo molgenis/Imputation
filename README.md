@@ -72,7 +72,7 @@ cp datasheet.csv /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/
 cp generate_template.sh /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/
 ```
 
-### 4) Create a folder called "input" and copy your data (.bed, .bim, .fam per chromosome) there
+### 4) Create a folder called "input" and copy your data (.bed, .bim, .fam per chromosome) to this folder
 ```bash
 cp ${YOUR_DATA_FILES} /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/input/
 ```
