@@ -67,7 +67,7 @@ cp datasheet.csv /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/
 * referenceGenome: The reference genome used for imputation, currently supported: gonl and 1000G
 * run: Name of the run (e.g. run01)
 
-### 3) Copy generate_template.sh to this directory and change the default settings to match your project
+### 3) Copy generate_template.sh to this directory and change the settings to match your project
 ```bash
 cp generate_template.sh /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/
 ```
