@@ -81,7 +81,7 @@ cp ${YOUR_DATA_FILES} /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/input/
 ```bash
 sh generate_template.sh
 ```
-Your jobs are generated and can be found in this folder:
+Your jobs are generated and can be found here:
 /groups/${GROUP}/tmp04/projects/${PROJECT}/${RUN}/jobs/
 
 ### 6) Submit your jobs
