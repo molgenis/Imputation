@@ -47,3 +47,49 @@ Tools used by the Imputation step:
 
 * IMPUTE2, version 2.3.0_x86_64_static 
 
+<br />
+
+## Running the imputation pipeline
+
+**_NOTE:_** Change this line in the parameters file in order to match the group on the reasearch cluster you are running the pipeline in: gafTmp,/groups/umcg-gaf/tmp04/ --> gafTmp,/groups/${YOUR_GROUP_NAME}/tmp04/
+
+### 1) Create a directory for your project
+```bash
+mkdir /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}
+```
+
+### 2) Copy datasheet.csv to this directory and adjust the file to match your project
+```bash
+cp datasheet.csv /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/
+```
+* studyData: Name of your project
+* genomeBuild: The genomebuild of your data
+* referenceGenome: The reference genome used for imputation, currently supported: gonl and 1000G
+* run: Name of the run (e.g. run01)
+
+### 3) Copy generate_template.sh to this directory and change the settings to match your project
+```bash
+cp generate_template.sh /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/
+```
+
+### 4) Create a folder called "input" and copy your data (.bed, .bim, .fam per chromosome)
+```bash
+cp ${YOUR_DATA_FILES} /groups/${GROUP}/tmp04/generatedscripts/${PROJECT}/input/
+```
+
+### 5) Generate your jobs
+```bash
+sh generate_template.sh
+```
+Your jobs are generated and can be found here:
+/groups/${GROUP}/tmp04/projects/${PROJECT}/${RUN}/jobs/
+
+### 6) Submit your jobs
+```bash
+sh submit.sh
+```
+Your results can be found here:
+/groups/${GROUP}/tmp04/projects/${PROJECT}/${RUN}/results/
+
+**_NOTE:_** In case of a crash, the temporary results can be found here:
+/groups/${GROUP}/tmp04/tmp/${PROJECT}/
