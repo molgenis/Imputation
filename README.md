@@ -6,3 +6,4 @@ The MOLGENIS Compute 5 User Guide is available at <a href="https://rawgithub.com
 
 # Imputation
 # HMF_pipeline
+# ansible-pipelines
