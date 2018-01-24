@@ -28,6 +28,11 @@ then
 elif [ "${referenceGenome}" == "gonl" ]
 then
 	pathToReference=${pathToReferenceGoNL}
+
+elif [ "${referenceGenome}" == "HRC" ]
+then
+        pathToReference=${pathToReferenceHRC}
+
 else
 	echo "Unsupported reference genome!"
 	exit 1

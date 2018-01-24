@@ -30,6 +30,11 @@ then
 elif  [ "${referenceGenome}" == "gonl" ]
 then
 	pathToPhasedReference=${pathToPhasedReferenceGoNL}
+
+elif [ "${referenceGenome}" == "HRC" ]
+then
+	pathToPhasedReference=${pathToPhasedReferenceHRC}/*_HRC.r1-1.EGA.GRCh37.chr${chrom}
+
 else
 	echo "WARN: Unsupported phased reference genome!"
 	exit 1
