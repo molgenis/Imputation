@@ -8,14 +8,14 @@
 #string chr
 #string pathToReference1000G
 #string pathToReferenceGoNL
-
+#string pathToReferenceHRC
 
 #Load modules and list currently loaded modules
 module load ${genotypeHarmonizerVersion}
 module list
 
 
-#Create tmp/tmp to save unifinished results
+#Create tmp/tmp to save unfinished results
 makeTmpDir ${outputPerChr}
 tmpOutputPerChr=${MC_tmpFile}
 

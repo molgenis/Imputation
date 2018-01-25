@@ -1,13 +1,13 @@
 ##DEFAULT DIRECTORY PARAMETERS
-gafTmp,/groups/umcg-gaf/tmp04/
-workDir,${gafTmp}/generatedscripts/
+#GROUP,$(basename $(cd ../../../ && pwd ))
+workDir,/groups/${GROUP}/${tmpDir}/generatedscripts/
 dataDir,/apps/data/
-tempDir,${gafTmp}/temp
-projectDir,${gafTmp}/projects/${studyData}/${run}/
+tempDir,/groups/${GROUP}/${tmpDir}/temp
+projectDir,/groups/${GROUP}/${tmpDir}/projects/${study}/${run}/
 
 
 ##LIFTOVER PARAMETERS
-liftOverInputFile,${workDir}/${studyData}/input/chr${chr}
+liftOverInputFile,${workDir}/${study}/${rawdata}/chr${chr}
 liftOverChainFileDir,${dataDir}/chainFiles/
 
 
@@ -39,7 +39,7 @@ finalResultsDir,${projectDir}/results/finalResults/
 
 
 ##TMP FOLDERS
-intermediateDir,${gafTmp}/tmp/${studyData}/
+intermediateDir,/groups/${GROUP}/${tmpDir}/tmp/${study}/
 outputPerChr,${intermediateDir}/chr${chr}
 outputPerChunk,${intermediateDir}/chr${chrom}_${fromChrPos}-${toChrPos}
 

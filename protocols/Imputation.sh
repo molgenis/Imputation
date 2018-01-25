@@ -10,7 +10,7 @@
 #string fromChrPos
 #string toChrPos
 #string pathToPhasedReferenceGoNL
-
+#string pathToPhasedReferenceHRC
 
 #Create tmp/tmp to save unfinished results
 makeTmpDir ${outputPerChunk}

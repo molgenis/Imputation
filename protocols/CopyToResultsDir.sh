@@ -6,7 +6,7 @@
 #list chr
 #string intermediateDir
 #string projectDir
-#string studyData
+#string study
 #string pigzVersion
 
 
@@ -179,4 +179,4 @@ then
 fi
 
 printf "Done copying files, pipeline is finished. Results can be found here: ${projectDir}/results/\n"
-touch ${studyData}.pipeline.finished
+touch ${study}.pipeline.finished
