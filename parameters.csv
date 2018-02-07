@@ -1,9 +1,8 @@
 ##DEFAULT DIRECTORY PARAMETERS
-#GROUP,$(basename $(cd ../../../ && pwd ))
-workDir,/groups/${GROUP}/${tmpDir}/generatedscripts/
+workDir,/groups/${group}/${tmpDir}/generatedscripts/
 dataDir,/apps/data/
-tempDir,/groups/${GROUP}/${tmpDir}/temp
-projectDir,/groups/${GROUP}/${tmpDir}/projects/${study}/${run}/
+tempDir,/groups/${group}/${tmpDir}/temp
+projectDir,/groups/${group}/${tmpDir}/projects/${study}/${run}/
 
 
 ##LIFTOVER PARAMETERS
@@ -39,7 +38,7 @@ finalResultsDir,${projectDir}/results/finalResults/
 
 
 ##TMP FOLDERS
-intermediateDir,/groups/${GROUP}/${tmpDir}/tmp/${study}/
+intermediateDir,/groups/${group}/${tmpDir}/tmp/${study}/
 outputPerChr,${intermediateDir}/chr${chr}
 outputPerChunk,${intermediateDir}/chr${chrom}_${fromChrPos}-${toChrPos}
 

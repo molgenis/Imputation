@@ -11,7 +11,9 @@ PROJECT=XX
 RUNID=XX
 
 TMPDIRECTORY=$(basename $(cd ../../ && pwd ))
+
 GROUP=$(basename $(cd ../../../ && pwd ))
+groupParameters="parameters_${GROUP}"
 
 HOMEDIR=/groups/${GROUP}/${TMPDIRECTORY}/
 WORKDIR=${HOMEDIR}/generatedscripts/${PROJECT}/
@@ -40,10 +42,13 @@ ${WORKDIR}/parameters_converted.csv
 perl ${EBROOTIMPUTATION}/convertParametersGitToMolgenis.pl ${EBROOTIMPUTATION}/${environmentParameters}.csv > \
 ${WORKDIR}/environment_parameters_converted.csv
 
+perl ${EBROOTIMPUTATION}/convertParametersGitToMolgenis.pl ${EBROOTIMPUTATION}/${groupParameters}.csv > \
+${WORKDIR}/group_parameters_converted.csv
 
 sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh \
 -p ${WORKDIR}/parameters_converted.csv \
 -p ${WORKDIR}/environment_parameters_converted.csv \
+-p ${WORKDIR}/group_parameters_converted.csv \
 -p ${WORKDIR}/datasheet.csv \
 -p ${EBROOTIMPUTATION}/chromosomes.csv \
 -p ${EBROOTIMPUTATION}/chunks_b37.csv \
