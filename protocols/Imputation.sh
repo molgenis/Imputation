@@ -42,37 +42,19 @@ fi
 
 
 #Perform imputation
-if $EBROOTIMPUTE2/impute2 \
-	-known_haps_g ${intermediateDir}/chr${chrom}.gh.haps \
+if $EBROOTIMPUTE4/impute4 \
+	-no_maf_align \
+	-g ${intermediateDir}/chr${chrom}.gh.haps \
 	-m ${geneticMapImputation} \
 	-h ${pathToPhasedReference}.hap.gz \
 	-l ${pathToPhasedReference}.legend.gz \
 	-int ${fromChrPos} ${toChrPos} \
-	-o ${tmpOutputPerChunk} \
-	-use_prephased_g
+	-o ${tmpOutputPerChunk}
 then
-	#If there are no SNPs in the imputation interval, empty files will created
-        if [ ! -f ${tmpOutputPerChunk}_info ]
-        then
-		echo "Impute2 did not output any files. Usually this means that there were no SNPs in this region. Generating empty files."
-                touch ${tmpOutputPerChunk}
-                touch ${tmpOutputPerChunk}_info
-                touch ${tmpOutputPerChunk}_info_by_sample
-        fi
+	echo -e "\nmv ${tmpOutputPerChunk}* ${intermediateDir}\n"
+	mv "${tmpOutputPerChunk}"* "${intermediateDir}"
 
-#If there are no type 2 SNPs, empty files will be generated
-elif [[ $(grep "ERROR: There are no type 2 SNPs after applying the command-line settings for this run" ${tmpOutputPerChunk}_summary) ]]
-then
-	echo "No type 2 SNPs were found. Generating empty files."
-        touch ${tmpOutputPerChunk}
-        touch ${tmpOutputPerChunk}_info
-        touch ${tmpOutputPerChunk}_info_by_sample
+        echo "Imputation is finished, resulting chunk and info files can be found here:${intermediateDir}\n"
 else
-	echo "Imputation cannot be performed..."
-	exit 1
+	echo -e "\nImpute4 did not output any files. Usually this means that there were no SNPs found in this region"
 fi
-
-echo -e "\nmv ${tmpOutputPerChunk}* ${intermediateDir}\n"
-mv "${tmpOutputPerChunk}"* "${intermediateDir}"
-
-echo "Imputation is finished, resulting chunk and info files can be found here: ${intermediateDir}\n"
