@@ -5,12 +5,12 @@
 #string referenceGenome
 #string intermediateDir
 #string chrom
-#string geneticMapImputation
 #string pathToPhasedReference1000G
-#string fromChrPos
-#string toChrPos
 #string pathToPhasedReferenceGoNL
 #string pathToPhasedReferenceHRC
+#string geneticMapImputation
+#string fromChrPos
+#string toChrPos
 
 #Create tmp/tmp to save unfinished results
 makeTmpDir ${outputPerChunk}

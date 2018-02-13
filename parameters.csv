@@ -19,6 +19,7 @@ pathToReference1000G,${dataDir}/${referenceGenome}/phase1/GIANT.phase1_release_v
 pathToReferenceGoNL,${dataDir}/${referenceGenome}/release5_noContam_noChildren_with_AN_AC_GTC_stripped/gonl.chr${chr}.snps_indels.r5.vcf.gz
 pathToReferenceHRC,/groups/umcg-lifelines/tmp03/EGAD00001002729/EGAZ00001239293_HRC.r1-1.EGA.GRCh37.sites.vcf.gz
 
+
 ##IMPUTATION PARAMETERS
 pathToPhasedReference1000G,${dataDir}/${referenceGenome}/imputationReference_phased_b37/ALL_${referenceGenome}_phase1integrated_v3_chr${chrom}_impute
 pathToPhasedReferenceGoNL,${dataDir}/${referenceGenome}/imputationReference_phased_b37/chr${chrom}
@@ -49,5 +50,6 @@ plinkVersion,plink/1.9-foss-2015b
 liftOverUcscVersion,liftOverUcsc/20161011
 shapeItVersion,shapeit/v2.r837-static
 genotypeHarmonizerVersion,GenotypeHarmonizer/1.4.18-Java-1.8.0_45
-imputeVersion,IMPUTE2/2.3.0_x86_64_static
+imputeVersion,IMPUTE4/r265.2
+qctoolVersion,qctool/1.4
 pigzVersion,pigz/2.3.1-foss-2015b

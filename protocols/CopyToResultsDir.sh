@@ -1,5 +1,6 @@
 #MOLGENIS walltime=05:59:59 mem=5gb ppn=21
 
+#string pigzVersion
 #string liftOverResultsDir
 #string logsResultsDir
 #string finalResultsDir
@@ -7,11 +8,10 @@
 #string intermediateDir
 #string projectDir
 #string study
-#string pigzVersion
 
 
 #Load modules and list currently loaded modules
-module load ${pipelineVersion}
+#module load ${pipelineVersion}
 module load ${pigzVersion}
 module list
 
@@ -56,14 +56,17 @@ do
 	if [[ $(grep "Genome builds of study data and reference data are the same, ped and map files are created and can be found here: ${intermediateDir}" s01_LiftOver_*.out) ]]
 	then
 		rsync -a ${intermediateDir}/chr${i}.{ped,map} ${liftOverResultsDir}
-	else
+	elif [[ -f ${intermediateDir}/chr${i}.{bed,bim,fam,ped,map} ]]
+	then
 		rsync -a ${intermediateDir}/chr${i}.{bed,bim,fam,ped,map} ${liftOverResultsDir}
+	else
+		echo "No liftover files found, proceeding..."		
 	fi
 
 	printf "."
 done
 
-printf " finished (1/5)\n"
+printf " finished (1/4)\n"
 
 
 #Copy logfiles to results directory
@@ -72,36 +75,33 @@ printf "Copy log files from each step to results directory "
 for i in ${CHRS[@]}
 do
 	#Copy LiftOver log
-	rsync -a ${intermediateDir}/chr${i}.log ${logsResultsDir}
-
+	if [[ -f ${intermediateDir}/chr${i}.log ]]
+	then
+		rsync -a ${intermediateDir}/chr${i}.log ${logsResultsDir}
+	else
+		echo "No liftover logfile found, proceeding..."
+	fi
+	
 	#Copy GH logs
-	rsync -a ${intermediateDir}/chr${i}.gh{.log,_snpLog.log} ${logsResultsDir}
+	if [[ -f ${intermediateDir}/chr${i}.gh{.log,_snpLog.log} ]]
+	then
+		rsync -a ${intermediateDir}/chr${i}.gh{.log,_snpLog.log} ${logsResultsDir}
+	else
+		echo "No GH logfile found, proceeding..."
+	fi
 
 	#Copy phasing logs
-	rsync -a ${intermediateDir}/chr${i}.phasing.{log,snp.mm,ind.mm} ${logsResultsDir}
+	if [[ -f ${intermediateDir}/chr${i}.phasing.{log,snp.mm,ind.mm} ]]
+	then
+		rsync -a ${intermediateDir}/chr${i}.phasing.{log,snp.mm,ind.mm} ${logsResultsDir}
+	else
+		echo "No phasing log files found, proceeding..."
+	fi
 
 	printf "."
 done
 
-printf " finished (2/5)\n"
-
-
-#Create new file with chunks, based on parameter file with chunk notation: chr_pos-pos
-awk '{if (NR!=1){print "chr"$1"_"$2"-"$3}}' FS="," ${EBROOTIMPUTATION}/chunks_b37.csv > ${intermediateDir}/chunks.txt
-
-
-#Copy chunk file statistics to results directory
-printf "Copy chunks statistics to results directory "
-
-for i in $(cat ${intermediateDir}/chunks.txt)
-do
-	rsync -a ${intermediateDir}/${i}_{info_by_sample,summary} ${logsResultsDir}
-
-	printf "."
-done
-
-printf " finished (3/5)\n"
-
+printf " finished (2/4)\n"
 
 #Rename to create consistency in finalresult
 #Print message when files are already renamed (restart of job)
@@ -147,7 +147,7 @@ do
 	printf "."
 done
 
-printf " finished (4/5)\n"
+printf " finished (3/4)\n"
 
 
 #Create md5sum for tar.gz file per chromosome
@@ -168,7 +168,7 @@ done
 #Change directory back
 cd -
 
-printf " finished (5/5)\n"
+printf " finished (4/4)\n"
 
 
 #Remove intermediateDir
