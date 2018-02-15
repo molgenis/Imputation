@@ -20,7 +20,7 @@ makeTmpDir ${outputPerChr}
 tmpOutputPerChr=${MC_tmpFile}
 
 
-#Reference genome should be one of the following: 1000G or GoNL, otherwise exit script
+#Reference genome should be one of the following: 1000G, GoNL or HRC, otherwise exit script
 if [ "${referenceGenome}" == "1000G" ]
 then
 	pathToReference=${pathToReference1000G}
