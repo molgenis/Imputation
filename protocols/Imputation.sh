@@ -46,8 +46,8 @@ if $EBROOTIMPUTE4/impute4 \
 	-no_maf_align \
 	-g "${intermediateDir}/chr${chrom}.gh.haps" \
 	-m "${geneticMapImputation}" \
-	-h "${pathToPhasedReference}.hap.gz" \
-	-l "${pathToPhasedReference}.legend.gz" \
+	-h ${pathToPhasedReference}.hap.gz \
+	-l ${pathToPhasedReference}.legend.gz \
 	-int "${fromChrPos}" "${toChrPos}" \
 	-o "${tmpOutputPerChunk}"
 then
