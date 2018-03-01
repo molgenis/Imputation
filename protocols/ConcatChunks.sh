@@ -1,4 +1,4 @@
-#MOLGENIS walltime=05:59:59 mem=5gb ppn=1
+#MOLGENIS walltime=05:59:59 mem=10gb ppn=1
 
 #string intermediateDir
 #string chrom
@@ -34,6 +34,9 @@ do
                         sed '1d' "${chunk}_info" > tmpfile; mv tmpfile "${chunk}_info"
                         impute2ChunksInfoMerged[${i}]="${chunk}_info"
                 fi
+	else
+		echo "${chunk}.gen not found, proceeding..."
+                continue
         fi
 done
 

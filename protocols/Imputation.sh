@@ -1,4 +1,4 @@
-#MOLGENIS walltime=2-00:00:00 mem=20gb ppn=1
+#MOLGENIS walltime=23:59:59 mem=20gb ppn=1
 
 #string outputPerChunk
 #string imputeVersion
