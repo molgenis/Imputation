@@ -3,5 +3,6 @@ s01_LiftOver,protocols/LiftOver.sh,
 s02_Phasing,protocols/Phasing.sh,s01_LiftOver
 s03_GenotypeHarmonizer,protocols/GenotypeHarmonizer.sh,s02_Phasing
 s04_Imputation,protocols/Imputation.sh,s03_GenotypeHarmonizer
-s05_ConcatChunks,protocols/ConcatChunks.sh,s04_Imputation
-s06_CopyToResultsDir,protocols/CopyToResultsDir.sh,s05_ConcatChunks
+s05_CreateStats,protocols/CreateStats.sh,s04_Imputation
+s06_ConcatChunks,protocols/ConcatChunks.sh,s05_CreateStats
+s07_CopyToResultsDir,protocols/CopyToResultsDir.sh,s06_ConcatChunks

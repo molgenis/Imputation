@@ -1,18 +1,18 @@
 #MOLGENIS walltime=05:59:59 mem=5gb ppn=21
 
+#string pigzVersion
 #string liftOverResultsDir
 #string logsResultsDir
 #string finalResultsDir
 #list chr
 #string intermediateDir
 #string projectDir
-#string studyData
-#string pigzVersion
+#string study
 
 
 #Load modules and list currently loaded modules
-module load ${pipelineVersion}
-module load ${pigzVersion}
+#module load ${pipelineVersion}
+module load "${pigzVersion}"
 module list
 
 
@@ -32,9 +32,9 @@ array_contains () {
 
 
 #Create result directories
-mkdir -p ${liftOverResultsDir}
-mkdir -p ${logsResultsDir}
-mkdir -p ${finalResultsDir}
+mkdir -p "${liftOverResultsDir}"
+mkdir -p "${logsResultsDir}"
+mkdir -p "${finalResultsDir}"
 
 
 #Create string with chromosomes
@@ -53,17 +53,23 @@ printf "Copy liftover files to results directory "
 
 for i in ${CHRS[@]}
 do
-	if [[ $(grep "Genome builds of study data and reference data are the same, ped and map files are created and can be found here: ${intermediateDir}" s01_LiftOver_*.out) ]]
+	if [[ -f "s01_LiftOver_"*".out" ]]
 	then
-		rsync -a ${intermediateDir}/chr${i}.{ped,map} ${liftOverResultsDir}
+		if [[ $(grep "Genome builds of study data and reference data are the same, ped and map files are created and can be found here: ${intermediateDir}" "s01_LiftOver_"*".out") ]]
+		then
+			rsync -a "${intermediateDir}/chr${i}."{ped,map} "${liftOverResultsDir}"
+		fi
+	elif [[ -f "${intermediateDir}/chr${i}."{bed,bim,fam,ped,map} ]]
+	then
+		rsync -a "${intermediateDir}/chr${i}."{bed,bim,fam,ped,map} "${liftOverResultsDir}"
 	else
-		rsync -a ${intermediateDir}/chr${i}.{bed,bim,fam,ped,map} ${liftOverResultsDir}
+		echo "No liftover files found, proceeding..."
 	fi
 
 	printf "."
 done
 
-printf " finished (1/5)\n"
+printf " finished (1/4)\n"
 
 
 #Copy logfiles to results directory
@@ -72,65 +78,62 @@ printf "Copy log files from each step to results directory "
 for i in ${CHRS[@]}
 do
 	#Copy LiftOver log
-	rsync -a ${intermediateDir}/chr${i}.log ${logsResultsDir}
+	if [[ -f "${intermediateDir}/chr${i}.log" ]]
+	then
+		rsync -a "${intermediateDir}/chr${i}.log" "${logsResultsDir}"
+	else
+		echo "No liftover logfile found, proceeding..."
+	fi
 
 	#Copy GH logs
-	rsync -a ${intermediateDir}/chr${i}.gh{.log,_snpLog.log} ${logsResultsDir}
+	if [[ -f "${intermediateDir}/chr${i}.gh"{.log,_snpLog.log} ]]
+	then
+		rsync -a "${intermediateDir}/chr${i}.gh"{.log,_snpLog.log} ${logsResultsDir}
+	else
+		echo "No GH logfile found, proceeding..."
+	fi
 
 	#Copy phasing logs
-	rsync -a ${intermediateDir}/chr${i}.phasing.{log,snp.mm,ind.mm} ${logsResultsDir}
+	if [[ -f "${intermediateDir}/chr${i}.phasing."{log,snp.mm,ind.mm} ]]
+	then
+		rsync -a "${intermediateDir}/chr${i}.phasing."{log,snp.mm,ind.mm} "${logsResultsDir}"
+	else
+		echo "No phasing log files found, proceeding..."
+	fi
 
 	printf "."
 done
 
-printf " finished (2/5)\n"
-
-
-#Create new file with chunks, based on parameter file with chunk notation: chr_pos-pos
-awk '{if (NR!=1){print "chr"$1"_"$2"-"$3}}' FS="," ${EBROOTIMPUTATION}/chunks_b37.csv > ${intermediateDir}/chunks.txt
-
-
-#Copy chunk file statistics to results directory
-printf "Copy chunks statistics to results directory "
-
-for i in $(cat ${intermediateDir}/chunks.txt)
-do
-	rsync -a ${intermediateDir}/${i}_{info_by_sample,summary} ${logsResultsDir}
-
-	printf "."
-done
-
-printf " finished (3/5)\n"
-
+printf " finished (2/4)\n"
 
 #Rename to create consistency in finalresult
 #Print message when files are already renamed (restart of job)
 for i in ${CHRS[@]}
 do
-	if ! [[ -f ${intermediateDir}/chr${i}.haps ]]
+	if ! [[ -f "${intermediateDir}/chr${i}.haps" ]]
 	then
-		rename '.gh'  '' ${intermediateDir}/chr${i}.gh.haps
+		rename '.gh'  '' "${intermediateDir}/chr${i}.gh.haps"
 	else
 		echo "Haps file of chr${i} is already renamed..."
 	fi
 
-	if ! [[ -f ${intermediateDir}/chr${i}.sample ]]
+	if ! [[ -f "${intermediateDir}/chr${i}.sample" ]]
 	then
-		rename '.gh'  '' ${intermediateDir}/chr${i}.gh.sample
+		rename '.gh'  '' "${intermediateDir}/chr${i}.gh.sample"
 	else
 		echo "Sample file of chr${i} is already renamed..."
 	fi
 
-	if ! [[ -f ${intermediateDir}/chr${i} ]]
+	if ! [[ -f "${intermediateDir}/chr${i}" ]]
 	then
-		rename '_concatenated'  '' ${intermediateDir}/chr${i}_concatenated
+		rename '_concatenated'  '' "${intermediateDir}/chr${i}_concatenated"
 	else
 		echo "Concatenated file of chr${i} is already renamed..."
 	fi
 
-	if ! [[ -f ${intermediateDir}/chr${i}_info ]]
+	if ! [[ -f "${intermediateDir}/chr${i}_info" ]]
 	then
-		rename '_concatenated'  '' ${intermediateDir}/chr${i}_info_concatenated
+		rename '_concatenated'  '' "${intermediateDir}/chr${i}_info_concatenated"
 	else
 		echo "Info file of chr${i} is already renamed..."
 	fi
@@ -142,12 +145,12 @@ printf "Creating tar.gz file per chromosome in results directory\n"
 
 for i in ${CHRS[@]}
 do
-	tar -cvf - ${intermediateDir}/chr${i}.haps ${intermediateDir}/chr${i}.sample ${intermediateDir}/chr${i} ${intermediateDir}/chr${i}_info | pigz -p 20 > ${finalResultsDir}/chr${i}.tar.gz
+	tar -cvf - "${intermediateDir}/chr${i}.haps" "${intermediateDir}/chr${i}.sample" "${intermediateDir}/chr${i}" "${intermediateDir}/chr${i}_info" | pigz -p 20 > "${finalResultsDir}/chr${i}.tar.gz"
 
 	printf "."
 done
 
-printf " finished (4/5)\n"
+printf " finished (3/4)\n"
 
 
 #Create md5sum for tar.gz file per chromosome
@@ -155,11 +158,11 @@ printf "Creating md5sums for tar.gz files in results directory\n"
 
 
 #Change directory to results directory to perform md5sum
-cd ${finalResultsDir}
+cd "${finalResultsDir}"
 
 for i in ${CHRS[@]}
 do
-	md5sum ${finalResultsDir}/chr${i}.tar.gz > ${finalResultsDir}/chr${i}.tar.gz.md5
+	md5sum "${finalResultsDir}/chr${i}.tar.gz" > "${finalResultsDir}/chr${i}.tar.gz.md5"
 
 	printf "."
 done
@@ -168,15 +171,15 @@ done
 #Change directory back
 cd -
 
-printf " finished (5/5)\n"
+printf " finished (4/4)\n"
 
 
 #Remove intermediateDir
 if [ -d ${intermediateDir:-} ]
 then
 	printf "Removing intermediateDir: ${intermediateDir}\n"
-	rm -rf ${intermediateDir}
+	rm -rf "${intermediateDir}"
 fi
 
 printf "Done copying files, pipeline is finished. Results can be found here: ${projectDir}/results/\n"
-touch ${studyData}.pipeline.finished
+touch "${study}.pipeline.finished"

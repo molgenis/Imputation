@@ -8,20 +8,20 @@
 
 
 #Create tmp/tmp to save unfinished results
-makeTmpDir ${outputPerChr}
-tmpOutputPerChr=${MC_tmpFile}
+makeTmpDir "${outputPerChr}"
+tmpOutputPerChr="${MC_tmpFile}"
 
 
 #load modules and list currently loaded modules
-module load ${shapeItVersion}
+module load "${shapeItVersion}"
 module list
 
 
 #Phasing study data
-shapeit -P ${intermediateDir}/chr${chr} \
-        -M ${geneticMapPhasing} \
-        -O ${tmpOutputPerChr}.phased \
-	--output-log ${tmpOutputPerChr}.phasing.log \
+shapeit -P "${intermediateDir}/chr${chr}" \
+        -M "${geneticMapPhasing}" \
+        -O "${tmpOutputPerChr}.phased" \
+	--output-log "${tmpOutputPerChr}.phasing.log" \
 	--thread 20
 
 echo -e "\nmv ${tmpOutputPerChr}.{phased.sample,phased.haps,phasing.log,phasing.snp.mm,phasing.ind.mm} ${intermediateDir}"

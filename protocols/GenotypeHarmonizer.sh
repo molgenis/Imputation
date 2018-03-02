@@ -8,19 +8,19 @@
 #string chr
 #string pathToReference1000G
 #string pathToReferenceGoNL
-
+#string pathToReferenceHRC
 
 #Load modules and list currently loaded modules
 module load ${genotypeHarmonizerVersion}
 module list
 
 
-#Create tmp/tmp to save unifinished results
+#Create tmp/tmp to save unfinished results
 makeTmpDir ${outputPerChr}
 tmpOutputPerChr=${MC_tmpFile}
 
 
-#Reference genome should be one of the following: 1000G or GoNL, otherwise exit script
+#Reference genome should be one of the following: 1000G, GoNL or HRC, otherwise exit script
 if [ "${referenceGenome}" == "1000G" ]
 then
 	pathToReference=${pathToReference1000G}
@@ -28,6 +28,11 @@ then
 elif [ "${referenceGenome}" == "gonl" ]
 then
 	pathToReference=${pathToReferenceGoNL}
+
+elif [ "${referenceGenome}" == "HRC" ]
+then
+        pathToReference=${pathToReferenceHRC}
+
 else
 	echo "Unsupported reference genome!"
 	exit 1
